@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-include "app/Koneksi.php";
+include "module/Koneksi.php";
 
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "app/user-session.php"
+include "module/user-session.php"
 ?>
 
 <!DOCTYPE html>

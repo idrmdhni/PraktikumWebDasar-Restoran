@@ -1,5 +1,5 @@
 <?php
-include "app/behavior.php";
+include "module/behavior.php";
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ include "app/behavior.php";
   <div class="container-fluid vh-100">
     <div class="row">
       <!-- Navigasi -->
-      <?php include "app/nav-template.php" ?>
+      <?php include "module/nav-template.php" ?>
 
       <!-- Konten Utama -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">

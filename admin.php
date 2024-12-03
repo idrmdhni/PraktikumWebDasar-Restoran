@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-include "app/behavior.php";
-include "app/Koneksi.php";
+include "module/behavior.php";
+include "module/Koneksi.php";
 
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "app/admin-session.php";
+include "module/admin-session.php";
 
 $result = $db->fetchRow("SELECT * FROM users WHERE user_id = '{$_SESSION['login']}'");
 $jenisAkun = $db->fetchAll("SELECT * FROM master_akses");
-$daftarWarnaCardAkun = ['bg-danger', 'bg-success', 'bg-primary', 'bg-warning'];
+$daftarWarnaCardAkun = ['bg-danger', 'bg-warning', 'bg-primary', 'bg-success'];
 $counterWarnaCardAkun = 0;
 ?>
 
@@ -37,7 +37,7 @@ $counterWarnaCardAkun = 0;
   <div class="container-fluid vh-100">
     <div class="row">
       <!-- Navigasi -->
-      <?php include "app/nav-template.php" ?>
+      <?php include "module/nav-template.php" ?>
 
       <!-- Konten Utama -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">
@@ -91,6 +91,9 @@ $counterWarnaCardAkun = 0;
             <!-- Account Tables -->
             <div class="col-12 col-xl-7 col-xxl-8">
 
+              <?php include 'module/modal-tambah_akun.php' ?>
+              <button type="button" class="btn btn-primary mb-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahAkun">Tambah Akun</button>
+
               <?php foreach ($jenisAkun as $status): ?>
                 <?php
                 $daftarAkun = $db->fetchAll("SELECT * FROM akses INNER JOIN users ON akses.user_id = users.user_id  WHERE akses.akses_id = '{$status['akses_id']}'");
@@ -107,7 +110,6 @@ $counterWarnaCardAkun = 0;
                         <th class="fw-semibold bg-body-tertiary">Nama</th>
 
                         <?php if ($status['akses_id'] != "administrator" && $_SESSION['akses'] == "administrator"): ?>
-                          <th class="fw-semibold bg-body-tertiary">Status</th>
                           <th class="fw-semibold bg-body-tertiary">Aksi</th>
                         <?php endif ?>
 
@@ -123,18 +125,9 @@ $counterWarnaCardAkun = 0;
                           <td><?= $akun['nama_lengkap'] ?></td>
 
                           <?php if ($status['nama'] != "Administrator" && $_SESSION['akses'] == "administrator"): ?>
-                            <td><?= $akun['status'] ?></td>
                             <td class="text-center">
-
-                              <?php if ($akun['status'] == "aktif"): ?>
-                                <?php include 'app/modal-edit_akun.php' ?>
-                                <button type="button" class="btn btn-primary ph-fill ph-pencil-line p-1 y-1" data-bs-toggle="modal" data-bs-target="#modalEditAkun"></button>
-                              <?php endif ?>
-
-                              <?php if ($akun['status'] == "tidak aktif"): ?>
-                                <a href="aktifkan_akun.php?akun=<?= $akun['user_id'] ?>" class="btn btn-success ph-fill ph-check-fat p-1 y-1"></a>
-                              <?php endif ?>
-
+                              <?php include 'module/modal-edit_akun.php' ?>
+                              <button type="button" class="btn btn-success ph-fill ph-pencil-line p-1 y-1" data-bs-toggle="modal" data-bs-target="#modalEditAkun"></button>
                               <a href="hapus_akun.php?akun=<?= $akun['user_id'] ?>" class="btn btn-danger ph-fill ph-eraser p-1 y-1"></a>
                             </td>
                           <?php endif ?>
@@ -163,6 +156,9 @@ $counterWarnaCardAkun = 0;
   <script src="src/js/admin_page-interaction.js"></script>
   <!-- Script untuk mode dark & light -->
   <script src="src/js/dark-light-mode.js"></script>
+  <!-- Script untuk tombol sembunyikan & tampilkan password -->
+  <script src="src/js/show-hide-pw.js"></script>
+  <script src="src/js/user_forms-validate.js"></script>
 </body>
 
 </html>

@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-include "app/Koneksi.php";
+include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "app/admin-session.php";
+include "module/admin-session.php";
 
 if (isset($_POST['edit'])) {
     $uid = $_POST['user_id'];
@@ -13,15 +13,15 @@ if (isset($_POST['edit'])) {
     if ($_POST['password_baru'] == "") {
         $password = $_POST['password_lama'];
     } else {
-        $password = $_POST['password_baru'];
+        $password = password_hash($_POST['password_baru'], PASSWORD_DEFAULT);;
     }
 } else {
     header('location: admin.php');
 }
 
-$cekUsername = $db->fetchRow("SELECT username FROM users WHERE username = '$username'");
+$cekUsername = $db->fetchRow("SELECT * FROM users WHERE username = '$username'");
 
-if ($cekUsername) {
+if ($cekUsername && $cekUsername['user_id'] != $uid) {
     echo "
         <script>
             alert('Username tidak tersedia!');
@@ -39,7 +39,7 @@ if ($cekUsername) {
     } else {
         echo "
             <script>
-                alert('Akses gagal diubah!');
+                alert('Akun gagal diubah!');
                 document.location.href = 'admin.php';
             </script>";
     }

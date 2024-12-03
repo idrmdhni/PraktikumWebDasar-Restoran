@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-include "app/Koneksi.php";
+include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "app/admin-session.php";
+include "module/admin-session.php";
 
 if (isset($_GET['akun'])) {
     $uid = $_GET['akun'];

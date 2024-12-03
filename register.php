@@ -1,14 +1,10 @@
 <?php
 session_start();
 
-include "app/Koneksi.php";
+include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "app/login-register-session.php";
-
-// Set nilai awal variabel agar peringatan tidak muncul
-$inputError = false;
-$signupError = false;
+include "module/login-register-session.php";
 
 // Ketika tombol daftar ditekan
 if (isset($_POST['signup'])) {
@@ -16,29 +12,23 @@ if (isset($_POST['signup'])) {
   $username = $_POST['username'];
   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
   $namaLengkap = $_POST['nama'];
-  $jenisAkun = $_POST['role'];
   $result = $db->fetchRow("SELECT username FROM users WHERE username = '$username'");
 
   // Validasi
-  // Cek apakah input kosong
-  if ($username == '' || $password == '' || $namaLengkap == '') {
-    // Jika kosong, set variabel untuk memunculkan peringatan
-    $inputError = true;
+  // Cek apakah username tersedia
+  if ($result) {
+    // Jika tidak tersedia, set variabel untuk memunculkan peringatan
+    $signupError = true;
   } else {
-    // Jika tidak kosong, cek apakah username tersedia
-    if ($result) {
-      // Set variabel untuk memunculkan peringatan
-      $signupError = true;
-    } else {
-      // Jika username tersedia, buat akun sesuai dengan yang telah diinputkan
-      $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap', 'tidak aktif')");
-      $result = $db->fetchRow("SELECT user_id FROM users WHERE username = '$username'")['user_id'];
-      $db->query("INSERT INTO akses VALUES ('$result', '$jenisAkun')");
-      // Jika akun berhasil dibuat
-      if ($db->affectedRows() > 0) {
-        // Set variabel untuk memunculkan permberitahuan bahwa akun berhasil dibuat
-        $signupSuccess = true;
-      }
+    // Jika username tersedia, buat akun sesuai dengan yang telah diinputkan
+    $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap')");
+    // Menambahkan akses akun sebagai pelanggan
+    $result = $db->fetchRow("SELECT * FROM users WHERE username = '$username'")['user_id'];
+    $db->query("INSERT INTO akses VALUES ('$result', 'pelanggan')");
+    // Jika akun berhasil dibuat
+    if ($db->affectedRows() > 0) {
+      // Set variabel untuk memunculkan permberitahuan bahwa akun berhasil dibuat
+      $signupSuccess = true;
     }
   }
 }
@@ -77,10 +67,10 @@ if (isset($_POST['signup'])) {
     <div class="row h-100">
       <div class="col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4 m-auto">
 
-        <!-- Peringatan ketika input kosong atau username/password salah -->
-        <?php if ($inputError || $signupError): ?>
+        <!-- Peringatan ketika input kosong atau username tidak tersedia -->
+        <?php if (isset($signupError)): ?>
           <div class="alert alert-danger alert-dismissible fade show mt-3">
-            <span><?= $inputError ? 'Tolong masukkan username / password / nama lengkap!' : 'Username tidak tersedia!' ?></span>
+            <span>Username tidak tersedia</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
         <?php endif ?>
@@ -94,7 +84,7 @@ if (isset($_POST['signup'])) {
 
         <div class="bg-body-tertiary shadow p-4 rounded-4 text">
           <div class="fs-1 fw-bold text-center mb-4">SIGNUP</div>
-          <form action="" method="post">
+          <form action="" method="post" id="userFormsValidation" novalidate>
             <!-- Username field -->
             <div class="d-flex flex-column gap-3">
               <div>
@@ -104,7 +94,9 @@ if (isset($_POST['signup'])) {
                   id="username"
                   name="username"
                   class="form-control rounded-3 shadow"
-                  placeholder="Username" />
+                  placeholder="Username"
+                  required />
+                <div class="invalid-feedback">Username tidak boleh kosong!</div>
               </div>
               <!-- Nama lengkap field -->
               <div>
@@ -114,7 +106,9 @@ if (isset($_POST['signup'])) {
                   id="nama"
                   name="nama"
                   class="form-control rounded-3 shadow"
-                  placeholder="Nama lengkap" />
+                  placeholder="Nama lengkap"
+                  required />
+                <div class="invalid-feedback">Nama tidak boleh kosong!</div>
               </div>
               <!-- Password field -->
               <div>
@@ -125,18 +119,11 @@ if (isset($_POST['signup'])) {
                     id="password"
                     name="password"
                     class="form-control rounded-start-3 shadow"
-                    placeholder="Password" />
+                    placeholder="Password"
+                    required />
                   <i class="ph ph-eye-slash input-group-text rounded-end-3 shadow" id="showPw"></i>
+                  <div class="invalid-feedback">Password tidak boleh kosong!</div>
                 </div>
-              </div>
-              <!-- Dropdown jenis akun -->
-              <div>
-                <label for="role" class="form-label">Jenis Akun</label>
-                <select name="role" id="role" class="form-select shadow">
-                  <option value="pelanggan">Pelanggan</option>
-                  <option value="kasir">Kasir</option>
-                  <option value="waiter">Waiter</option>
-                </select>
               </div>
               <!-- Tombol daftar -->
               <button type="submit" class="btn btn-primary align-self-center shadow" name="signup">
@@ -155,6 +142,7 @@ if (isset($_POST['signup'])) {
   <script src="src/js/dark-light-mode.js"></script>
   <!-- Script untuk tombol sembunyikan & tampilkan password -->
   <script src="src/js/show-hide-pw.js"></script>
+  <script src="src/js/user_forms-validate.js"></script>
 </body>
 
 </html>

@@ -29,19 +29,16 @@ $akunSaatIni = $db->fetchRow("SELECT * FROM users WHERE user_id = '{$akun['user_
                 id="password"
                 name="password_baru"
                 name="password"
-                class="form-control rounded-start-3 shadow"
+                class="form-control rounded-start-3"
                 placeholder="Password" />
-              <i class="ph ph-eye-slash input-group-text rounded-end-3 shadow" id="showPw"></i>
+              <i class="ph ph-eye-slash input-group-text rounded-end-3" id="showPw"></i>
             </div>
           </div>
         </div>
         <div class="modal-footer text-end">
-          <button type="submit" class="btn btn-primary" name="edit">Edit</button>
+          <button type="submit" class="btn btn-success" name="edit">Edit</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
-<!-- Script untuk tombol sembunyikan & tampilkan password -->
-<script src="src/js/show-hide-pw.js"></script>

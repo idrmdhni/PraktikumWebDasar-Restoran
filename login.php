@@ -1,15 +1,10 @@
 <?php
 session_start();
 
-include "app/Koneksi.php";
+include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "app/login-register-session.php";
-
-
-// Set nilai awal variabel agar peringatan tidak muncul
-$inputError = false;
-$loginError = false;
+include "module/login-register-session.php";
 
 // Ketika tombol login ditekan
 if (isset($_POST['login'])) {
@@ -19,48 +14,34 @@ if (isset($_POST['login'])) {
   $result = $db->fetchRow("SELECT * FROM users WHERE username = '$username'");
 
   // Validasi
-  // Cek apakah input kosong
-  if ($username == '' || $password == '') {
-    // Set variabel untuk memunculkan peringatan
-    $inputError = true;
-  } else {
-    // Jika tidak kosong, cek apakah username dan password sesuai
-    if ($result && password_verify($password, $result['password'])) {
-      // Jika akun belum diverifikasi olehh admin
-      if ($result['status'] == "tidak aktif") {
-        // Set variabel untuk memunculkan peringatan
-        $verifError = true;
-      }
-      // Jika akun sudah diverifikasi arahkan ke halaman admin / user
-      else {
-        // Mendapatkan akses berdasarkan jenis akun
-        $akses = $db->fetchRow("SELECT * FROM akses WHERE user_id = '{$result["user_id"]}'");
+  // Cek apakah username dan password sesuai
+  if ($result && password_verify($password, $result['password'])) {
+    // Mendapatkan akses berdasarkan jenis akun
+    $akses = $db->fetchRow("SELECT * FROM akses WHERE user_id = '{$result["user_id"]}'");
 
-        // Set sesi untuk mengatur akses ke halaman 
-        $_SESSION['login'] = $result['user_id'];
-        $_SESSION['akses'] = $akses['akses_id'];
+    // Set sesi untuk mengatur akses ke halaman 
+    $_SESSION['login'] = $result['user_id'];
+    $_SESSION['akses'] = $akses['akses_id'];
 
-        // Jika tombol remember me dicentang
-        if (isset($_POST['rememberme'])) {
-          // Atur agar ketika membuka halaman tidak perlu login kembali
-          setcookie('id', $result['user_id'], time() + 60);
-          setcookie('key', hash('sha256', $result['username']), time() + 60);
-        }
-
-        // Jika akun yang login termasuk akun pelanggan, arahkan ke halaman user
-        if ($akses['akses_id'] == "pelanggan") {
-          header('location: index.php');
-        }
-        // Jika akun yang login tidak termasuk akun pelanggan, arahkan ke halaman admin
-        else {
-          header('location: admin.php');
-        }
-      }
+    // Jika tombol remember me dicentang
+    if (isset($_POST['rememberme'])) {
+      // Atur agar ketika membuka halaman tidak perlu login kembali
+      setcookie('id', $result['user_id'], time() + 60);
+      setcookie('key', hash('sha256', $result['username']), time() + 60);
     }
-    // Jika username / password tidak sesuai, set variabel untuk memunculkan peringatan
+
+    // Jika akun yang login termasuk akun pelanggan, arahkan ke halaman user
+    if ($akses['akses_id'] == "pelanggan") {
+      header('location: index.php');
+    }
+    // Jika akun yang login tidak termasuk akun pelanggan, arahkan ke halaman admin
     else {
-      $loginError = true;
+      header('location: admin.php');
     }
+  }
+  // Jika username / password tidak sesuai, set variabel untuk memunculkan peringatan
+  else {
+    $loginError = true;
   }
 }
 ?>
@@ -98,25 +79,17 @@ if (isset($_POST['login'])) {
     <div class="row h-100">
       <div class="col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4 m-auto">
 
-        <!-- Peringatan ketika input kosong atau username/password salah -->
-        <?php if ($inputError || $loginError): ?>
+        <!-- Peringatan ketika username/password salah -->
+        <?php if (isset($loginError)): ?>
           <div class="alert alert-danger alert-dismissible fade show">
-            <span><?= $inputError ? 'Tolong masukkan username / password' : 'Username atau password anda salah!' ?></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-        <?php endif ?>
-
-        <!-- Peringatan ketika akun belum diverifikasi -->
-        <?php if (isset($verifError)): ?>
-          <div class="alert alert-danger alert-dismissible fade show">
-            <span><?= 'Akun anda belum diverifikasi oleh admin' ?></span>
+            <span>Username atau password anda salah!</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
         <?php endif ?>
 
         <div class="bg-body-tertiary shadow p-4 rounded-4 text">
           <div class="fs-1 fw-bold text-center mb-4">LOGIN</div>
-          <form action="" method="post">
+          <form action="" method="post" id="userFormsValidation" novalidate>
             <!-- Username field -->
             <div class="d-flex flex-column gap-3">
               <div>
@@ -127,7 +100,8 @@ if (isset($_POST['login'])) {
                   name="username"
                   class="form-control rounded-3 shadow"
                   placeholder="Username"
-                  <?= $inputError ? 'autofocus' : '' ?> />
+                  required />
+                <div class="invalid-feedback">Username tidak boleh kosong!</div>
               </div>
 
               <!-- Password field -->
@@ -139,8 +113,10 @@ if (isset($_POST['login'])) {
                     id="password"
                     name="password"
                     class="form-control rounded-start-3 shadow"
-                    placeholder="Password" />
+                    placeholder="Password"
+                    required />
                   <i class="ph ph-eye-slash input-group-text rounded-end-3 shadow" id="showPw"></i>
+                  <div class="invalid-feedback">Password tidak boleh kosong!</div>
                 </div>
               </div>
 
@@ -174,6 +150,7 @@ if (isset($_POST['login'])) {
   <script src="src/js/dark-light-mode.js"></script>
   <!-- Script untuk tombol sembunyikan & tampilkan password -->
   <script src="src/js/show-hide-pw.js"></script>
+  <script src="src/js/user_forms-validate.js"></script>
 </body>
 
 </html>
