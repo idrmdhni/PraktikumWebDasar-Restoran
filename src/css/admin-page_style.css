@@ -1,0 +1,35 @@
+.sidebar-close {
+  width: 80px;
+}
+
+#sidebarBtn {
+  cursor: pointer;
+}
+
+.dropdown-parent {
+  position: relative;
+}
+
+.dropdown-link[data-bs-toggle="collapse"]::after {
+  width: 0.45em;
+  height: 0.45em;
+  border: solid;
+  border-width: 0 0.15rem 0.15rem 0;
+  content: "";
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  transform: rotate(-135deg);
+  transition: all 0.2s ease-out;
+}
+
+.dropdown-link[data-bs-toggle="collapse"].collapsed::after {
+  transform: rotate(45deg);
+  transition: all 0.2s ease-out;
+}
+
+.content > header {
+  height: 100px;
+}

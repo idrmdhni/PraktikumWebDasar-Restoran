@@ -1,0 +1,51 @@
+/* untuk halaman login & register */
+.dark-light-toggle-wrapper {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+}
+/* end */
+
+/* Style untuk mengubah checkbox menjadi switch */
+.checkbox {
+  opacity: 0;
+  position: absolute;
+  display: none !important;
+}
+
+.checkbox-label {
+  width: 55px;
+  height: 30px;
+  border-radius: 55px;
+  position: relative;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ph-moon {
+  color: #f1c40f;
+}
+
+.ph-sun {
+  color: #f39c12;
+}
+
+.checkbox-label .ball {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 6px;
+  top: 5px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+
+#checkbox {
+  display: none;
+}
