@@ -55,8 +55,8 @@ if (isset($_POST['signup'])) {
   <div class="container vh-100">
     <!-- Toggle Dark & Light Mode -->
     <div class="dark-light-toggle-wrapper">
-      <input type="checkbox" class="checkbox" id="checkbox" />
-      <label for="checkbox" class="checkbox-label bg-body-secondary">
+      <input type="checkbox" class="dark-light-checkbox" id="darkLightcheckbox" />
+      <label for="darkLightcheckbox" class="dark-light-checkbox-label bg-body-secondary">
         <i class="ph ph-moon me-2 text-body"></i>
         <i class="ph ph-sun text-body"></i>
         <span class="ball bg-body"></span>
@@ -125,6 +125,9 @@ if (isset($_POST['signup'])) {
                   <div class="invalid-feedback">Password tidak boleh kosong!</div>
                 </div>
               </div>
+
+              <span>Sudah punya akun? <a href="login.php">Login</a></span>
+
               <!-- Tombol daftar -->
               <button type="submit" class="btn btn-primary align-self-center shadow" name="signup">
                 Daftar

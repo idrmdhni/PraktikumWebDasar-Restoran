@@ -7,13 +7,13 @@
 /* end */
 
 /* Style untuk mengubah checkbox menjadi switch */
-.checkbox {
+.dark-light-checkbox {
   opacity: 0;
   position: absolute;
   display: none !important;
 }
 
-.checkbox-label {
+.dark-light-checkbox-label {
   width: 55px;
   height: 30px;
   border-radius: 55px;
@@ -32,7 +32,7 @@
   color: #f39c12;
 }
 
-.checkbox-label .ball {
+.dark-light-checkbox-label .ball {
   width: 20px;
   height: 20px;
   position: absolute;
@@ -42,10 +42,10 @@
   transition: transform 0.2s linear;
 }
 
-.checkbox:checked + .checkbox-label .ball {
+.dark-light-checkbox:checked + .dark-light-checkbox-label .ball {
   transform: translateX(24px);
 }
 
-#checkbox {
+#darkLightcheckbox {
   display: none;
 }

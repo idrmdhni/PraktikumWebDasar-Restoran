@@ -37,10 +37,10 @@ include "module/behavior.php";
           </div>
           <!-- Toggle Dark & Light Mode -->
           <div class="me-2">
-            <input type="checkbox" class="checkbox" id="checkbox">
-            <label for="checkbox" class="checkbox-label bg-body-secondary">
-              <i class="ph-duotone ph-moon me-2 text-body"></i>
-              <i class="ph-duotone ph-sun text-body"></i>
+            <input type="checkbox" class="dark-light-checkbox" id="darkLightcheckbox" />
+            <label for="darkLightcheckbox" class="dark-light-checkbox-label bg-body-secondary">
+              <i class="ph ph-moon me-2 text-body"></i>
+              <i class="ph ph-sun text-body"></i>
               <span class="ball bg-body"></span>
             </label>
           </div>
