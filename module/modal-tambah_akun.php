@@ -37,7 +37,7 @@
             <select name="role" id="role" class="form-select">
               <option value="pelanggan">Pelanggan</option>
               <option value="kasir">Kasir</option>
-              <option value="waiter">Waiter</option>
+              <option value="pelayan">Pelayan</option>
             </select>
           </div>
         </div>
