@@ -1,5 +1,14 @@
 <?php
-include "module/behavior.php";
+session_start();
+
+include "module/navigasi-admin.php";
+include "module/Koneksi.php";
+
+$db = new Koneksi("localhost", "root", "", "restoran");
+
+include "module/session-admin.php";
+
+$daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
 ?>
 
 <!DOCTYPE html>
@@ -25,26 +34,11 @@ include "module/behavior.php";
   <div class="container-fluid vh-100">
     <div class="row">
       <!-- Navigasi -->
-      <?php include "module/nav-template.php" ?>
+      <?php include "module/template-navigasi_admin.php" ?>
 
       <!-- Konten Utama -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">
-        <header class="d-flex align-items-center justify-content-between">
-          <!-- Tombol Navigasi dan Judul Halaman -->
-          <div class="ms-2 d-flex gap-4">
-            <a class="ph-bold ph-list fs-3 text-decoration-none text-reset align-self-center" id="sidebarBtn" data-bs-toggle="offcanvas" data-bs-target="#sidebarParent"></a>
-            <span class="fs-5 fw-semibold">Selamat Datang, Administrator</span>
-          </div>
-          <!-- Toggle Dark & Light Mode -->
-          <div class="me-2">
-            <input type="checkbox" class="dark-light-checkbox" id="darkLightcheckbox" />
-            <label for="darkLightcheckbox" class="dark-light-checkbox-label bg-body-secondary">
-              <i class="ph ph-moon me-2 text-body"></i>
-              <i class="ph ph-sun text-body"></i>
-              <span class="ball bg-body"></span>
-            </label>
-          </div>
-        </header>
+        <?php include "module/template_header-admin.php" ?>
 
         <main class="d-flex flex-column px-5 py-3 py-md-4 ms-3 ms-md-4 gap-1">
           <!-- Judul Halaman dan Breadcrum -->
@@ -61,64 +55,107 @@ include "module/behavior.php";
             <!-- Tambah Daftar Menu -->
             <div class="col-12 d-flex justify-content-between">
               <span class="fs-4 fw-semibold">Daftar Menu</span>
-              <a href="" class="btn btn-primary">Tambah Menu</a>
+
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahDaftarMenu"><i class="ph-bold ph-plus"></i> Tambah Menu</button>
+
+              <!-- Modal tambah daftar menu -->
+              <div class="modal fade" id="modalTambahDaftarMenu" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title fs-5" id="modalLabelEditAkun">Tambah Daftar Menu</h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="tambah-daftar_menu.php" method="post" id="menuFormValidation" enctype="multipart/form-data" novalidate>
+                      <div class="modal-body text-start">
+                        <div class="mb-3">
+                          <label for="namaMenu" class="form-label">Nama Menu</label>
+                          <input type="text" class="form-control" id="namaMenu" name="nama_menu" required>
+                          <div class="invalid-feedback">Nama menu tidak boleh kosong!</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="harga" class="form-label">Harga</label>
+                          <input type="number" class="form-control" id="harga" name="harga" required>
+                          <div class="invalid-feedback">Harga tidak boleh kosong!</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="gambarMenu" class="form-label">Gambar</label>
+                          <input type="file" class="form-control" id="gambarMenu" name="gambar_menu" required>
+                          <div class="invalid-feedback">Gambar tidak boleh kosong!</div>
+                        </div>
+                      </div>
+                      <div class="modal-footer text-end">
+                        <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <!-- Cards Menu -->
-            <div class="col-auto">
-              <div class="card me-2">
-                <div class="card-img-top bg-dark-subtle" style="width: 16rem ;height: 9rem;"></div>
-                <div class="card-body">
-                  <h5 class="card-title">Menu 1</h5>
-                  <p class="card-text">Rp.1.000/Porsi</p>
-                  <div class="text-center">
-                    <a href="" class="btn btn-success"><i class="ph-fill ph-pencil-simple-line"></i> Edit</a>
-                    <a href="" class="btn btn-danger"><i class="ph-fill ph-eraser"></i> Hapus</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <?php $counter = 0 ?>
+            <?php foreach ($daftarMenu as $menu): ?>
+              <div class="col-auto">
+                <div class="card me-2">
+                  <img src="src/img/<?= $menu['gambar'] ?>" class="card-img-top bg-dark-subtle" style="width: 16rem ;height: 12rem;"></img>
+                  <div class="card-body">
+                    <h5 class="card-title"><?= $menu['nama_menu'] ?></h5>
+                    <p class="card-text">Rp.<?= number_format($menu['harga'], 0, ',', '.') ?>/Porsi</p>
+                    <div class="text-center">
 
-            <div class="col-auto">
-              <div class="card me-2">
-                <div class="card-img-top bg-dark-subtle" style="width: 16rem ;height: 9rem;"></div>
-                <div class="card-body">
-                  <h5 class="card-title">Menu 1</h5>
-                  <p class="card-text">Rp.1.000/Porsi</p>
-                  <div class="text-center">
-                    <a href="" class="btn btn-success"><i class="ph-fill ph-pencil-simple-line"></i> Edit</a>
-                    <a href="" class="btn btn-danger"><i class="ph-fill ph-eraser"></i> Hapus</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+                      <!-- Modal edit daftar menu -->
+                      <div class="modal fade" id="modalEditDaftarMenu<?= $counter ?>" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3 class="modal-title fs-5" id="modalLabelEditAkun">Edit Daftar Menu</h3>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form action="edit-daftar_menu.php" method="post" id="menuFormValidation" enctype="multipart/form-data">
+                              <div class="modal-body text-start">
+                                <input type="hidden" name="menu_id" value="<?= $menu['menu_id'] ?>">
+                                <input type="hidden" name="gambar_lama" value="<?= $menu['gambar'] ?>">
+                                <div class="mb-3">
+                                  <label for="namaMenu" class="form-label">Nama menu</label>
+                                  <input type="text" class="form-control" id="namaMenu" name="nama_menu" value="<?= $menu['nama_menu'] ?>">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="harga" class="form-label">Harga</label>
+                                  <input type="text" class="form-control" id="harga" name="harga" value="<?= $menu['harga'] ?>">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="gambarMenu" class="form-label">Gambar</label>
+                                  <input type="file" class="form-control" id="gambarMenu" name="gambar_menu">
+                                </div>
+                              </div>
+                              <div class="modal-footer text-end">
+                                <button type="submit" class="btn btn-success" name="edit">Edit</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
 
-            <div class="col-auto">
-              <div class="card me-2">
-                <div class="card-img-top bg-dark-subtle" style="width: 16rem ;height: 9rem;"></div>
-                <div class="card-body">
-                  <h5 class="card-title">Menu 1</h5>
-                  <p class="card-text">Rp.1.000/Porsi</p>
-                  <div class="text-center">
-                    <a href="" class="btn btn-success"><i class="ph-fill ph-pencil-simple-line"></i> Edit</a>
-                    <a href="" class="btn btn-danger"><i class="ph-fill ph-eraser"></i> Hapus</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+                      <!-- Edit -->
+                      <div class="d-flex gap-2 justify-content-center">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditDaftarMenu<?= $counter++ ?>">
+                          <i class="ph-fill ph-pencil-line"></i> Edit
+                        </button>
 
-            <div class="col-auto">
-              <div class="card me-2">
-                <div class="card-img-top bg-dark-subtle" style="width: 16rem ;height: 9rem;"></div>
-                <div class="card-body">
-                  <h5 class="card-title">Menu 1</h5>
-                  <p class="card-text">Rp.1.000/Porsi</p>
-                  <div class="text-center">
-                    <a href="" class="btn btn-success"><i class="ph-fill ph-pencil-simple-line"></i> Edit</a>
-                    <a href="" class="btn btn-danger"><i class="ph-fill ph-eraser"></i> Hapus</a>
+                        <!-- Hapus -->
+                        <form action="hapus-daftar_menu.php" method="post">
+                          <input type="hidden" name="menu_id" value="<?= $menu['menu_id'] ?>">
+                          <button type="submit" class="btn btn-danger" name="hapus_menu">
+                            <i class="ph-fill ph-eraser"></i> Hapus
+                          </button>
+                        </form>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            <?php endforeach ?>
 
           </div>
         </main>
@@ -129,9 +166,11 @@ include "module/behavior.php";
   <!-- Bootstsrap -->
   <script src="src/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
   <!-- Script untuk interaksi pada halaman admin -->
-  <script src="src/js/admin_page-interaction.js"></script>
+  <script src="src/js/interaction-admin_page.js"></script>
   <!-- Script untuk mode dark & light -->
-  <script src="src/js/dark-light-mode.js"></script>
+  <script src="src/js/dark_light-mode.js"></script>
+  <!-- Script untuk validasi form kelola menu -->
+  <script src="src/js/validation-daftar_menu.js"></script>
 </body>
 
 </html>

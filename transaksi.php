@@ -1,5 +1,14 @@
 <?php
-include "module/behavior.php";
+session_start();
+
+include "module/navigasi-admin.php";
+include "module/Koneksi.php";
+
+$db = new Koneksi("localhost", "root", "", "restoran");
+
+include "module/session-admin.php";
+
+include "module/navigasi-admin.php";
 ?>
 
 <!DOCTYPE html>
@@ -25,26 +34,11 @@ include "module/behavior.php";
   <div class="container-fluid vh-100">
     <div class="row">
       <!-- Navigasi -->
-      <?php include "module/nav-template.php" ?>
+      <?php include "module/template-navigasi_admin.php" ?>
 
       <!-- Konten Utama -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100" id="content">
-        <header class="d-flex align-items-center justify-content-between">
-          <!-- Tombol Navigasi dan Judul Halaman -->
-          <div class="ms-2 d-flex gap-4">
-            <a class="ph-bold ph-list fs-3 text-decoration-none text-reset align-self-center" id="sidebarBtn" data-bs-toggle="offcanvas" data-bs-target="#sidebarParent"></a>
-            <span class="fs-5 fw-semibold">Selamat Datang, Administrator</span>
-          </div>
-          <!-- Toggle Dark & Light Mode -->
-          <div class="me-2">
-            <input type="checkbox" class="dark-light-checkbox" id="darkLightcheckbox" />
-            <label for="darkLightcheckbox" class="dark-light-checkbox-label bg-body-secondary">
-              <i class="ph ph-moon me-2 text-body"></i>
-              <i class="ph ph-sun text-body"></i>
-              <span class="ball bg-body"></span>
-            </label>
-          </div>
-        </header>
+        <?php include "module/template_header-admin.php" ?>
 
         <main class="d-flex flex-column px-5 py-3 py-md-4 ms-3 ms-md-4 gap-1">
           <!-- Judul Halaman dan Breadcrum -->
@@ -59,7 +53,7 @@ include "module/behavior.php";
 
           <div class="table-responsive">
             <table class="table table-bordered caption-top">
-              <caption class="pt-0">Belum Bayar</caption>
+              <caption class="pt-1 fw-medium"><i class="ph-duotone ph-money"></i> Belum Bayar</caption>
               <thead>
                 <tr class="border-secondary-subtle">
                   <th class="fw-semibold bg-body-secondary">No.</th>
@@ -87,9 +81,11 @@ include "module/behavior.php";
             </table>
           </div>
 
+          <hr>
+
           <div class="table-responsive">
             <table class="table table-bordered caption-top">
-              <caption class="pt-0">Riwayat Transaksi</caption>
+              <caption class="pt-1 fw-medium"><i class="ph-duotone ph-clock-counter-clockwise"></i> Riwayat Transaksi</caption>
               <thead>
                 <tr class="border-secondary-subtle">
                   <th class="fw-semibold bg-body-secondary">No.</th>
@@ -119,9 +115,9 @@ include "module/behavior.php";
   <!-- Bootstsrap -->
   <script src="src/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
   <!-- Script untuk interaksi pada halaman admin -->
-  <script src="src/js/admin_page-interaction.js"></script>
+  <script src="src/js/interaction-admin_page.js"></script>
   <!-- Script untuk mode dark & light -->
-  <script src="src/js/dark-light-mode.js"></script>
+  <script src="src/js/dark_light-mode.js"></script>
 </body>
 
 </html>

@@ -1,17 +1,18 @@
-const showPw = document.getElementById("showPw");
-const pw = document.getElementById("password");
+const showPw = document.querySelectorAll(".show-pw");
+const pw = document.querySelectorAll(".pw");
 
-showPw.style.cursor = "pointer";
+for (let i = 0; i < showPw.length; i++) {
+  showPw[i].style.cursor = "pointer";
+  showPw[i].addEventListener("click", (ele) => {
+    ele.target.classList.toggle("ph-eye-slash");
+    ele.target.classList.toggle("ph-eye");
 
-showPw.addEventListener("click", (ele) => {
-  ele.target.classList.toggle("ph-eye-slash");
-  ele.target.classList.toggle("ph-eye");
-
-  if (pw.getAttribute("type") == "password") {
-    pw.removeAttribute("type", "password");
-    pw.setAttribute("type", "text");
-  } else {
-    pw.removeAttribute("type", "text");
-    pw.setAttribute("type", "password");
-  }
-});
+    if (pw[i].getAttribute("type") == "password") {
+      pw[i].removeAttribute("type", "password");
+      pw[i].setAttribute("type", "text");
+    } else {
+      pw[i].removeAttribute("type", "text");
+      pw[i].setAttribute("type", "password");
+    }
+  });
+}

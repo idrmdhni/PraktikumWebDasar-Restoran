@@ -4,10 +4,10 @@ session_start();
 include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "module/admin-session.php";
+include "module/session-admin.php";
 
-if (isset($_GET['akun'])) {
-    $uid = $_GET['akun'];
+if (isset($_POST['hapus_akun'])) {
+    $uid = $_POST['user_id'];
 } else {
     header('location: admin.php');
 }
@@ -17,13 +17,13 @@ $db->query("DELETE FROM users WHERE user_id = '$uid'");
 if ($db->affectedRows() > 0) {
     echo "
         <script>
-            alert('Akses berhasil diubah!');
+            alert('Akun berhasil dihapus!');
             document.location.href = 'admin.php';
         </script>";
 } else {
     echo "
         <script>
-            alert('Akses gagal diubah!');
+            alert('Akun gagal dihapus!');
             document.location.href = 'admin.php';
         </script>";
 }

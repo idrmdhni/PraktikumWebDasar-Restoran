@@ -1,3 +1,13 @@
+<?php
+$navItems = [
+  ['link' => 'admin.php', 'title' => 'Beranda'],
+  ['link' => 'kelola-menu.php', 'title' => 'Kelola Menu'],
+  ['link' => 'transaksi.php', 'title' => 'Transaksi']
+];
+$navItemsLogo = ['Beranda' => 'ph-duotone ph-house-line', 'Kelola Menu' => 'ph-duotone ph-pencil-line', 'Transaksi' => 'ph-duotone ph-cash-register'];
+?>
+
+
 <div class="offcanvas-lg offcanvas-start d-none bg-body-tertiary vh-100 d-lg-flex flex-column text-body py-3 sidebar-close shadow" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="sidebarParent">
   <button type="button" class="btn-close d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebarParent" id="closeSidebarBtn" aria-label="Close"></button>
   <div

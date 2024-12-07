@@ -4,7 +4,7 @@ session_start();
 include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "module/admin-session.php";
+include "module/session-admin.php";
 
 if (isset($_POST['edit'])) {
     $uid = $_POST['user_id'];

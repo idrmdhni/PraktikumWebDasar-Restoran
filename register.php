@@ -4,7 +4,7 @@ session_start();
 include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "module/login-register-session.php";
+include "module/session-login_register.php";
 
 // Ketika tombol daftar ditekan
 if (isset($_POST['signup'])) {
@@ -84,7 +84,7 @@ if (isset($_POST['signup'])) {
 
         <div class="bg-body-tertiary shadow p-4 rounded-4 text">
           <div class="fs-1 fw-bold text-center mb-4">SIGNUP</div>
-          <form action="" method="post" id="userFormsValidation" novalidate>
+          <form action="" method="post" id="userFormValidation" novalidate>
             <!-- Username field -->
             <div class="d-flex flex-column gap-3">
               <div>
@@ -118,10 +118,10 @@ if (isset($_POST['signup'])) {
                     type="password"
                     id="password"
                     name="password"
-                    class="form-control rounded-start-3 shadow"
+                    class="form-control rounded-start-3 shadow pw"
                     placeholder="Password"
                     required />
-                  <i class="ph ph-eye-slash input-group-text rounded-end-3 shadow" id="showPw"></i>
+                  <i class="ph ph-eye-slash input-group-text rounded-end-3 shadow show-pw"></i>
                   <div class="invalid-feedback">Password tidak boleh kosong!</div>
                 </div>
               </div>
@@ -142,10 +142,11 @@ if (isset($_POST['signup'])) {
   <!-- Bootstsrap -->
   <script src="src/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
   <!-- Script untuk mode dark & light -->
-  <script src="src/js/dark-light-mode.js"></script>
+  <script src="src/js/dark_light-mode.js"></script>
   <!-- Script untuk tombol sembunyikan & tampilkan password -->
   <script src="src/js/show-hide-pw.js"></script>
-  <script src="src/js/user_forms-validate.js"></script>
+  <!-- Script untuk validasi form user -->
+  <script src="src/js/validation-user_form.js"></script>
 </body>
 
 </html>
