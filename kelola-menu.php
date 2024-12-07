@@ -56,7 +56,9 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
             <div class="col-12 d-flex justify-content-between">
               <span class="fs-4 fw-semibold">Daftar Menu</span>
 
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahDaftarMenu"><i class="ph-bold ph-plus"></i> Tambah Menu</button>
+              <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahDaftarMenu">
+                <i class="ph-bold ph-plus"></i> Tambah Menu
+              </button>
 
               <!-- Modal tambah daftar menu -->
               <div class="modal fade" id="modalTambahDaftarMenu" tabindex="-1" aria-hidden="true">
@@ -98,7 +100,7 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
             <?php foreach ($daftarMenu as $menu): ?>
               <div class="col-auto">
                 <div class="card me-2">
-                  <img src="src/img/<?= $menu['gambar'] ?>" class="card-img-top bg-dark-subtle" style="width: 16rem ;height: 12rem;"></img>
+                  <img src="src/img/<?= $menu['gambar'] ?>" class="card-img-top bg-dark-subtle img-fluid" style="width: 16rem ;height: 12rem;"></img>
                   <div class="card-body">
                     <h5 class="card-title"><?= $menu['nama_menu'] ?></h5>
                     <p class="card-text">Rp.<?= number_format($menu['harga'], 0, ',', '.') ?>/Porsi</p>
