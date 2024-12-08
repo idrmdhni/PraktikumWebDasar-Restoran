@@ -6,7 +6,7 @@ $db = new Koneksi("localhost", "root", "", "restoran");
 
 include "../module/session/session-admin.php";
 
-if (isset($_POST['bayar_transaksi'])) {
+if (isset($_POST['bayar_pesanan'])) {
     $bayar = $_POST['bayar'];
     $kembalian = $_POST['kembalian'];
     $tId = $_POST['transaksi_id'];
@@ -14,7 +14,7 @@ if (isset($_POST['bayar_transaksi'])) {
     header('location: ../transaksi.php');
 }
 
-$db->query("UPDATE transaksi SET bayar = '$bayar', kembalian = '$kembalian', status_bayar = 'lunas' ");
+$db->query("UPDATE transaksi SET bayar = '$bayar', kembalian = '$kembalian', status_bayar = 'lunas' WHERE transaksi_id = $tId");
 if ($db->affectedRows() > 0) {
     echo "
             <script>

@@ -120,6 +120,8 @@ $user = $db->fetchAll("SELECT * FROM users");
                   <th class="fw-semibold bg-body-secondary">Waktu Pemesanan</th>
                   <th class="fw-semibold bg-body-secondary">Nama Pemesan</th>
                   <th class="fw-semibold bg-body-secondary">Total Harga</th>
+                  <th class="fw-semibold bg-body-secondary">Bayar</th>
+                  <th class="fw-semibold bg-body-secondary">Kembalian</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,6 +133,8 @@ $user = $db->fetchAll("SELECT * FROM users");
                       <td><?= $daftarTransaksi[$i]['waktu_transaksi'] ?></td>
                       <td><?= $user ?></td>
                       <td>Rp<?= number_format($daftarTransaksi[$i]['total_harga_keseluruhan'], 2, ',', '.') ?></td>
+                      <td>Rp<?= number_format($daftarTransaksi[$i]['bayar'], 2, ',', '.') ?></td>
+                      <td>Rp<?= number_format($daftarTransaksi[$i]['kembalian'], 2, ',', '.') ?></td>
                     </tr>
                   <?php endif ?>
                 <?php endfor ?>
