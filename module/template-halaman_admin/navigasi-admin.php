@@ -1,7 +1,7 @@
 <?php
 $navItems = [
     ['link' => 'admin.php', 'title' => 'Beranda'],
-    ['link' => 'kelola-menu.php', 'title' => 'Kelola Menu'],
+    ['link' => 'kelola_menu.php', 'title' => 'Kelola Menu'],
     ['link' => 'transaksi.php', 'title' => 'Transaksi']
 ];
 $navItemsLogo = ['Beranda' => 'ph-duotone ph-house-line', 'Kelola Menu' => 'ph-duotone ph-pencil-line', 'Transaksi' => 'ph-duotone ph-cash-register'];

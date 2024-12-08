@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-include "module/Koneksi.php";
+include "../module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "module/session-admin.php";
+include "../module/session/session-admin.php";
 
 if (isset($_POST['tambah'])) {
     $username = $_POST['username'];
@@ -12,7 +12,7 @@ if (isset($_POST['tambah'])) {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $jenisAkun = $_POST['role'];
 } else {
-    header('location: admin.php');
+    header('location: ../admin.php');
 }
 
 $result = $db->fetchRow("SELECT username FROM users WHERE username = '$username'");
@@ -20,8 +20,8 @@ $result = $db->fetchRow("SELECT username FROM users WHERE username = '$username'
 if ($result) {
     echo "
     <script>
-    alert('Username tidak tersedia!');
-    document.location.href = 'admin.php';
+        alert('Username tidak tersedia!');
+        document.location.href = '../admin.php';
     </script>";
 } else {
     $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap')");
@@ -32,13 +32,13 @@ if ($result) {
         echo "
             <script>
                 alert('Akun berhasil ditambahkan!');
-                document.location.href = 'admin.php';
+                document.location.href = '../admin.php';
             </script>";
     } else {
         echo "
             <script>
                 alert('Akun gagal ditambahkan!');
-                document.location.href = 'admin.php';
+                document.location.href = '../admin.php';
             </script>";
     }
 }

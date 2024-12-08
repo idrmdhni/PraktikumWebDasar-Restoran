@@ -25,7 +25,7 @@ function upload()
     }
 
     // Lolos pengecekan, gambar siap di upload
-    move_uploaded_file($tmp_name, "src/img/$nama_file");
+    move_uploaded_file($tmp_name, "../src/img/$nama_file");
 
     return ["status" => "success", "pesan" => "Gambar berhasil di upload", "result" => $nama_file];
 }

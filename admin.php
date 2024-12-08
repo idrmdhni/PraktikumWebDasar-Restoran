@@ -1,20 +1,16 @@
 <?php
 session_start();
 
-include "module/navigasi-admin.php";
+include "module/template-halaman_admin/navigasi-admin.php";
 include "module/Koneksi.php";
 
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "module/session-admin.php";
+include "module/session/session-admin.php";
 
 $jenisAkun = $db->fetchAll("SELECT * FROM master_akses");
 $daftarWarnaCardAkun = ['bg-danger', 'bg-warning', 'bg-primary', 'bg-success'];
 $counterWarnaCardAkun = 0;
-
-if ($_SESSION['akses'] == "administrator") {
-  $counterModalEditAkun = 1;
-}
 ?>
 
 <!DOCTYPE html>
@@ -40,11 +36,11 @@ if ($_SESSION['akses'] == "administrator") {
   <div class="container-fluid vh-100">
     <div class="row">
       <!-- Navigasi -->
-      <?php include "module/template-navigasi_admin.php" ?>
+      <?php include "module/template-halaman_admin/template_navigasi-admin.php" ?>
 
       <!-- Konten Utama -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">
-        <?php include "module/template_header-admin.php" ?>
+        <?php include "module/template-halaman_admin/template_header-admin.php" ?>
 
         <main class="d-flex flex-column px-5 py-3 py-md-4 ms-3 ms-md-4 gap-1">
           <!-- Judul Halaman dan Breadcrum -->
@@ -83,56 +79,7 @@ if ($_SESSION['akses'] == "administrator") {
               <?php if ($_SESSION['akses'] == "administrator"): ?>
 
                 <!-- Modal - Tambah Akun -->
-                <div class="modal fade" id="modalTambahAkun" tabindex="-1" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h3 class="modal-title fs-5" id="modalLabelEditAkun">Tambah Akun</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                      <form action="tambah-akun.php" method="post" id="userFormValidation" novalidate>
-                        <div class="modal-body text-start">
-                          <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                            <div class="invalid-feedback">Username tidak boleh kosong!</div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                            <div class="invalid-feedback">Nama tidak boleh kosong!</div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <div class="input-group">
-                              <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                name="password"
-                                class="form-control rounded-start-3"
-                                placeholder="Password"
-                                required />
-                              <i class="ph ph-eye-slash input-group-text rounded-end-3" id="showPw"></i>
-                              <div class="invalid-feedback">Password tidak boleh kosong!</div>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="role" class="form-label">Jenis Akun</label>
-                            <select name="role" id="role" class="form-select">
-                              <option value="pelanggan">Pelanggan</option>
-                              <option value="kasir">Kasir</option>
-                              <option value="pelayan">Pelayan</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="modal-footer text-end">
-                          <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+                <?php include "module/modal_box/modal-tambah_akun.php" ?>
 
                 <button type="button" class="btn btn-primary mb-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahAkun"><i class="ph-bold ph-plus"></i> Tambah Akun</button>
               <?php endif ?>
@@ -159,7 +106,11 @@ if ($_SESSION['akses'] == "administrator") {
                       </tr>
                     </thead>
                     <tbody>
-
+                      <?php
+                      // Varibel untuk memberi nomor pada modal box edit akun
+                      if ($_SESSION['akses'] == "administrator") {
+                        $counterModalEditAkun = 1;
+                      } ?>
                       <?php foreach ($daftarAkun as $akun): ?>
 
                         <tr>
@@ -170,53 +121,14 @@ if ($_SESSION['akses'] == "administrator") {
                           <?php if ($_SESSION['akses'] == "administrator"): ?>
                             <td class="text-center">
 
-                              <!-- Modal - Edit Akun -->
-                              <div class="modal fade" id="modalEditAkun<?= $counterModalEditAkun ?>" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h3 class="modal-title fs-5" id="modalLabelEditAkun">Edit Akun</h3>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <form action="edit-akun.php" method="post">
-                                      <div class="modal-body text-start">
-                                        <input type="hidden" name="user_id" value="<?= $akun['user_id'] ?>">
-                                        <input type="hidden" name="password_lama" value="<?= $akun['password'] ?>">
-                                        <div class="mb-3">
-                                          <label for="username" class="form-label">Username</label>
-                                          <input type="text" class="form-control" id="username" name="username" value="<?= $akun['username'] ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                          <label for="nama" class="form-label">Nama Lengkap</label>
-                                          <input type="text" class="form-control" id="nama" name="nama" value="<?= $akun['nama_lengkap'] ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                          <label for="password" class="form-label">Password</label>
-                                          <div class="input-group">
-                                            <input
-                                              type="password"
-                                              id="password"
-                                              name="password_baru"
-                                              name="password"
-                                              class="form-control rounded-start-3 pw"
-                                              placeholder="Password" />
-                                            <i class="ph ph-eye-slash input-group-text rounded-end-3 show-pw"></i>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer text-end">
-                                        <button type="submit" class="btn btn-success" name="edit">Edit</button>
-                                      </div>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
+                              <!-- Modal edit akun -->
+                              <?php include "module/modal_box/modal-edit_akun.php" ?>
 
                               <div class="d-flex justify-content-center gap-1">
                                 <!-- Edit -->
                                 <button type="button" class="btn btn-success ph-fill ph-pencil-line p-1 y-1" data-bs-toggle="modal" data-bs-target="#modalEditAkun<?= $counterModalEditAkun++ ?>"></button>
                                 <!-- Hapus -->
-                                <form action="hapus-akun.php" method="post">
+                                <form action="crud/hapus-akun.php" method="post">
                                   <input type="hidden" name="user_id" value="<?= $akun['user_id'] ?>">
                                   <button type="submit" class="btn btn-danger ph-fill ph-eraser p-1 y-1" name="hapus_akun"></button>
                                 </form>
@@ -254,7 +166,7 @@ if ($_SESSION['akses'] == "administrator") {
     <!-- Script untuk tombol sembunyikan & tampilkan password -->
     <script src="src/js/show-hide-pw.js"></script>
     <!-- Script untuk validasi form user -->
-    <script src="src/js/validation-user_form.js"></script>
+    <script src="src/js/validation-kelola_akun.js"></script>
   <?php endif ?>
 </body>
 

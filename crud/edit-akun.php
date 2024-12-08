@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-include "module/Koneksi.php";
+include "../module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
 
-include "module/session-admin.php";
+include "../module/session/session-admin.php";
 
 if (isset($_POST['edit'])) {
     $uid = $_POST['user_id'];
@@ -16,7 +16,7 @@ if (isset($_POST['edit'])) {
         $password = password_hash($_POST['password_baru'], PASSWORD_DEFAULT);;
     }
 } else {
-    header('location: admin.php');
+    header('location: ../admin.php');
 }
 
 $cekUsername = $db->fetchRow("SELECT * FROM users WHERE username = '$username'");
@@ -25,7 +25,7 @@ if ($cekUsername && $cekUsername['user_id'] != $uid) {
     echo "
         <script>
             alert('Username tidak tersedia!');
-            document.location.href = 'admin.php';
+            document.location.href = '../admin.php';
         </script>";
 } else {
     $db->query("UPDATE users SET username = '$username', nama_lengkap = '$namaLengkap', password = '$password' WHERE user_id = '$uid'");
@@ -34,13 +34,13 @@ if ($cekUsername && $cekUsername['user_id'] != $uid) {
         echo "
             <script>
                 alert('Akun berhasil diedit!');
-                document.location.href = 'admin.php';
+                document.location.href = '../admin.php';
             </script>";
     } else {
         echo "
             <script>
                 alert('Akun gagal diubah!');
-                document.location.href = 'admin.php';
+                document.location.href = '../admin.php';
             </script>";
     }
 }
