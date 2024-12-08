@@ -70,7 +70,7 @@ $user = $db->fetchAll("SELECT * FROM users");
 
             <table class="table table-bordered caption-top mt-2">
               <thead>
-                <tr class="border-secondary-subtle">
+                <tr class="border-secondary-subtle text-center">
                   <th class="fw-semibold bg-body-secondary">No.</th>
                   <th class="fw-semibold bg-body-secondary">Waktu Transaksi</th>
                   <th class="fw-semibold bg-body-secondary">Nama Pemesan</th>
@@ -83,7 +83,7 @@ $user = $db->fetchAll("SELECT * FROM users");
                   <?php $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'] ?>
                   <?php if ($daftarTransaksi[$i]['status_bayar'] == 'belum bayar'): ?>
                     <tr>
-                      <td><?= $i + 1 ?></td>
+                      <td class="text-center"><?= $i + 1 ?>.</td>
                       <td><?= $daftarTransaksi[$i]['waktu_transaksi'] ?></td>
                       <td><?= $user ?></td>
                       <td>Rp <?= number_format($daftarTransaksi[$i]['total_harga_keseluruhan'], 2, ',', '.') ?></td>
@@ -115,10 +115,10 @@ $user = $db->fetchAll("SELECT * FROM users");
             </div>
             <table class="table table-bordered caption-top mt-2">
               <thead>
-                <tr class="border-secondary-subtle">
+                <tr class="border-secondary-subtle text-center">
                   <th class="fw-semibold bg-body-secondary">No.</th>
                   <th class="fw-semibold bg-body-secondary">Waktu Pemesanan</th>
-                  <th class="fw-semibold bg-body-secondary">Nama Pemesan</th>
+                  <th class="fw-semibold bg-body-secondary">Nama Transaksi</th>
                   <th class="fw-semibold bg-body-secondary">Total Harga</th>
                   <th class="fw-semibold bg-body-secondary">Bayar</th>
                   <th class="fw-semibold bg-body-secondary">Kembalian</th>
@@ -129,7 +129,7 @@ $user = $db->fetchAll("SELECT * FROM users");
                   <?php $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'] ?>
                   <?php if ($daftarTransaksi[$i]['status_bayar'] == 'lunas'): ?>
                     <tr>
-                      <td><?= $i + 1 ?></td>
+                      <td class="text-center"><?= $i + 1 ?>.</td>
                       <td><?= $daftarTransaksi[$i]['waktu_transaksi'] ?></td>
                       <td><?= $user ?></td>
                       <td>Rp<?= number_format($daftarTransaksi[$i]['total_harga_keseluruhan'], 2, ',', '.') ?></td>

@@ -44,7 +44,7 @@
             </table>
           </div>
 
-          <input type="hidden" value="<?= $daftarTransaksi[$i]['total_harga_keseluruhan'] ?>" id="totalHargaPesanan">
+          <input type="hidden" value="<?= $daftarTransaksi[$i]['total_harga_keseluruhan'] ?>" id="totalHargaKeseluruhan" name="total_harga_keseluruhan">
           <input type="hidden" value="<?= $daftarTransaksi[$i]['transaksi_id'] ?>" name="transaksi_id">
           <div class="mb-3 row">
             <div class="col-auto d-flex align-items-center">

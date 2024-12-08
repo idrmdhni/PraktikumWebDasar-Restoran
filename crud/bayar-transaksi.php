@@ -10,21 +10,30 @@ if (isset($_POST['bayar_pesanan'])) {
     $bayar = $_POST['bayar'];
     $kembalian = $_POST['kembalian'];
     $tId = $_POST['transaksi_id'];
+    $totalHargaKeseluruhan = $_POST['total_harga_keseluruhan'];
 } else {
     header('location: ../transaksi.php');
 }
 
-$db->query("UPDATE transaksi SET bayar = '$bayar', kembalian = '$kembalian', status_bayar = 'lunas' WHERE transaksi_id = $tId");
-if ($db->affectedRows() > 0) {
+if ($bayar < $totalHargaKeseluruhan) {
     echo "
             <script>
-                alert('Pesanan berhasil dibayar!');
+                alert('Jumlah pembayaran yang diberikan kurang dari total harga keseluruhan!');
                 document.location.href = '../transaksi.php';
             </script>";
 } else {
-    echo "
+    $db->query("UPDATE transaksi SET bayar = '$bayar', kembalian = '$kembalian', status_bayar = 'lunas' WHERE transaksi_id = $tId");
+    if ($db->affectedRows() > 0) {
+        echo "
             <script>
-                alert('Pesanan gagal dibayar!');
+                alert('Transaksi berhasil dibayar!');
                 document.location.href = '../transaksi.php';
             </script>";
+    } else {
+        echo "
+            <script>
+                alert('Transaksi gagal dibayar!');
+                document.location.href = '../transaksi.php';
+            </script>";
+    }
 }

@@ -76,7 +76,6 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
                       <span>Rp <?= number_format($menu['harga'], 2, ',', '.') ?>/Porsi</span>
                     </div>
 
-
                     <!-- Modal edit daftar menu -->
                     <?php include "module/modal_box/modal-edit_daftar_menu.php" ?>
 
@@ -94,7 +93,6 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
                         </button>
                       </form>
                     </div>
-
 
                   </div>
                 </div>
