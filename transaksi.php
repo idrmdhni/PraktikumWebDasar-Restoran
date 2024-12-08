@@ -2,9 +2,10 @@
 session_start();
 
 include "module/template-halaman_admin/navigasi-admin.php";
-include "module/Koneksi.php";
 
+include "module/Koneksi.php";
 $db = new Koneksi("localhost", "root", "", "restoran");
+date_default_timezone_set('Asia/Makassar');
 
 include "module/session/session-admin.php";
 
