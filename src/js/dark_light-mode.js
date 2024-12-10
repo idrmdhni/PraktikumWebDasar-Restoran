@@ -1,14 +1,14 @@
-// Mengatur mode dark & light
+// Mendapatkan element toggle mode malam/siang
 const darkLightCheckbox = document.getElementById("darkLightcheckbox");
-
+// Mengecek mode apakah yang disimpan di dalam cookie
 const themeMode = getCookie("theme_mode");
 if (themeMode == "dark") {
   darkLightCheckbox.checked = true;
   themeModeChange();
 }
 
+// Fungsi untuk membuat cookie
 function setCookie(name, value, days) {
-  // console.log("tes");
   let expires = "";
 
   if (days) {
@@ -21,11 +21,9 @@ function setCookie(name, value, days) {
   document.cookie = `${name}=${
     value || ""
   }; expires=${expires}; path=/; SameSite=Lax`;
-  console.log(
-    `${name}=${value || ""}; expires=${expires}; path=/; SameSite=Lax`
-  );
 }
 
+// Fungsi untuk mendapatkan cookie
 function getCookie(cookieName) {
   const name = cookieName + "=";
   const decodedCookie = decodeURIComponent(document.cookie);
@@ -43,11 +41,12 @@ function getCookie(cookieName) {
   }
 }
 
+// Fungsi untuk mengganti mode
 function themeModeChange() {
   if (darkLightCheckbox.checked) {
     document.documentElement.setAttribute("data-bs-theme", "dark");
 
-    setCookie("theme_mode", "dark", 30);
+    setCookie("theme_mode", "dark", 360);
   } else {
     document.documentElement.setAttribute("data-bs-theme", "light");
 
@@ -55,6 +54,7 @@ function themeModeChange() {
   }
 }
 
+// Event untuk mengecek apkah toggle mode malam berubah
 darkLightCheckbox.addEventListener("change", () => {
   themeModeChange();
 });

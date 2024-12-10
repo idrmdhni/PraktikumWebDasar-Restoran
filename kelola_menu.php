@@ -1,13 +1,15 @@
 <?php
+// Memulai sesi
 session_start();
-
+// Menyertakan script untuk mengatur segala bentuk navigasi
 include "module/template-halaman_admin/navigasi-admin.php";
+// Menyertakan script untuk fungsi database
 include "module/Koneksi.php";
-
+// Koneksi ke database restoran
 $db = new Koneksi("localhost", "root", "", "restoran");
-
+// Menyertakan script untuk mengatur sesi
 include "module/session/session-admin.php";
-
+// Mengambil data daftar menu dari tabel daftar_menu
 $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
 ?>
 

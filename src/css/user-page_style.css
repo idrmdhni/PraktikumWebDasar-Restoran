@@ -1,0 +1,56 @@
+.logout {
+  color: inherit;
+}
+
+.incre-decre {
+  display: none;
+}
+
+.increment,
+.decrement {
+  width: 20px;
+  height: 30px;
+  padding: 0;
+  padding-bottom: 3px;
+  border: none;
+  line-height: 0;
+}
+
+.increment,
+.decrement,
+.amount {
+  border: 1px solid #cdcdcd;
+}
+
+.amount {
+  width: 30px;
+  height: 30px;
+  border-left: 0;
+  border-right: 0;
+  font-size: 0.85em;
+  text-align: center;
+}
+
+.increment {
+  border-radius: 0 5px 5px 0;
+}
+
+.decrement {
+  border-radius: 5px 0 0 5px;
+}
+
+.amount:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 576px) {
+  .card.card-menu {
+    width: 480px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card.card-menu {
+    max-width: 240px;
+  }
+}

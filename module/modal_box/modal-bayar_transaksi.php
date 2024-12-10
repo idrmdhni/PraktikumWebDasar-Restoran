@@ -44,14 +44,14 @@
             </table>
           </div>
 
-          <input type="hidden" value="<?= $daftarTransaksi[$i]['total_harga_keseluruhan'] ?>" id="totalHargaKeseluruhan" name="total_harga_keseluruhan">
+          <input type="hidden" value="<?= $daftarTransaksi[$i]['total_harga_keseluruhan'] ?>" name="total_harga_keseluruhan" class="total_harga_keseluruhan">
           <input type="hidden" value="<?= $daftarTransaksi[$i]['transaksi_id'] ?>" name="transaksi_id">
           <div class="mb-3 row">
             <div class="col-auto d-flex align-items-center">
               <label for="bayar" class="form-label mb-0">Membayar :</label>
             </div>
             <div class=" col">
-              <input type="number" id="bayar" class="form-control" name="bayar">
+              <input type="text" class="form-control bayar" name="bayar">
             </div>
           </div>
           <div class="mb-3 row">
@@ -59,8 +59,8 @@
               <label for="kembalianDisplay" class="form-label mb-0">Kembalian :</label>
             </div>
             <div class=" col">
-              <input type="text" id="kembalianDisplay" class="form-control-plaintext" readonly>
-              <input type="hidden" id="kembalianInput" name="kembalian">
+              <input type="text" class="kembalian_display form-control-plaintext" readonly>
+              <input type="hidden" class="kembalian_input" name="kembalian">
             </div>
           </div>
         </div>

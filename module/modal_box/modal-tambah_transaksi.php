@@ -21,7 +21,7 @@
               </select>
               <div class="input-group mt-1">
                 <span class="input-group-text">Jumlah</span>
-                <input type="number" class="form-control" name="jumlah_pesanan_per_menu[]">
+                <input type="number" class="form-control" name="jumlah_pesanan_per_menu[]" required>
               </div>
               <div class="invalid-feedback">Menu tidak boleh kosong!</div>
             </div>

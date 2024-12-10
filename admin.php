@@ -1,16 +1,22 @@
 <?php
+// Memulai sesi
 session_start();
-
+// Menyertakan script untuk mengatur segala bentuk navigasi
 include "module/template-halaman_admin/navigasi-admin.php";
+// Menyertakan script untuk fungsi database
 include "module/Koneksi.php";
-
+// Koneksi ke database restoran
 $db = new Koneksi("localhost", "root", "", "restoran");
-
+// Menyertakan script untuk mengatur sesi
 include "module/session/session-admin.php";
-
+// Mengambil data jenis akun dari tabel jenis_akun
 $jenisAkun = $db->fetchAll("SELECT * FROM master_akses");
-$daftarWarnaCardAkun = ['bg-danger', 'bg-warning', 'bg-primary', 'bg-success'];
-$counterWarnaCardAkun = 0;
+// Daftar warna background pada tampilan total akun yang terdaftar pada masing-masing jenis akun
+$backgroundTotalJenisAkun = ['bg-danger', 'bg-warning', 'bg-primary', 'bg-success'];
+// Variabel untuk memberi nomor pada modal box edit akun
+if ($_SESSION['akses'] == "administrator") {
+  $counterModalEditAkun = 1;
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +46,7 @@ $counterWarnaCardAkun = 0;
 
       <!-- Konten Utama -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">
+
         <?php include "module/template-halaman_admin/template_header-admin.php" ?>
 
         <main class="d-flex flex-column px-5 py-3 py-md-4 ms-3 ms-md-4 gap-1">
@@ -55,20 +62,20 @@ $counterWarnaCardAkun = 0;
           <div class="row">
             <div class="col-12 col-xl-5 col-xxl-4">
 
-              <!-- Sumarry Account Cards -->
+              <!-- Total akun dalam setiap jenis akun -->
               <div class="row row-cols-2 g-2 justify-content-center mb-4 mb-xl-0">
 
-                <?php foreach ($jenisAkun as $status): ?>
-                  <?php $jumlahAkun = $db->fetchAll("SELECT * FROM akses WHERE akses_id = '{$status['akses_id']}'"); ?>
+                <?php for ($i = 0; $i < count($jenisAkun); $i++): ?>
+                  <?php $jumlahAkun = $db->fetchAll("SELECT * FROM akses WHERE akses_id = '{$jenisAkun[$i]['akses_id']}'"); ?>
 
-                  <div class="col-5 card <?= $daftarWarnaCardAkun[$counterWarnaCardAkun++] ?> me-2">
+                  <div class="col-5 card <?= $backgroundTotalJenisAkun[$i] ?> me-2">
                     <div class="card-body text-center px-3">
                       <i class="ph-fill ph-user fs-1"></i>
                       <div class="fs-5 fw-bold"><?= count($jumlahAkun) ?></div>
-                      <span class="fs-5 fw-bold"><?= $status['nama'] ?></span>
+                      <span class="fs-5 fw-bold"><?= $jenisAkun[$i]['nama'] ?></span>
                     </div>
                   </div>
-                <?php endforeach ?>
+                <?php endfor ?>
 
               </div>
             </div>
@@ -77,10 +84,8 @@ $counterWarnaCardAkun = 0;
             <div class="col-12 col-xl-7 col-xxl-8">
 
               <?php if ($_SESSION['akses'] == "administrator"): ?>
-
                 <!-- Modal - Tambah Akun -->
                 <?php include "module/modal_box/modal-tambah_akun.php" ?>
-
                 <button type="button" class="btn btn-primary mb-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahAkun"><i class="ph-bold ph-plus"></i> Tambah Akun</button>
               <?php endif ?>
 
@@ -90,6 +95,7 @@ $counterWarnaCardAkun = 0;
                 $counterDaftarAkun = 1;
                 ?>
 
+                <!-- Tabel untuk menyimpan informasi akun -->
                 <div class="table-responsive">
                   <table class="table table-bordered caption-top">
                     <caption class="pt-0">Data <?= $status['nama'] ?></caption>
@@ -106,15 +112,10 @@ $counterWarnaCardAkun = 0;
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
-                      // Varibel untuk memberi nomor pada modal box edit akun
-                      if ($_SESSION['akses'] == "administrator") {
-                        $counterModalEditAkun = 1;
-                      } ?>
-                      <?php foreach ($daftarAkun as $akun): ?>
 
+                      <?php foreach ($daftarAkun as $akun): ?>
                         <tr>
-                          <td class="text-center"><?= $counterDaftarAkun++ ?></td>
+                          <td class="text-center"><?= $counterDaftarAkun++ ?>.</td>
                           <td><?= $akun['username'] ?></td>
                           <td><?= $akun['nama_lengkap'] ?></td>
 
@@ -137,13 +138,11 @@ $counterWarnaCardAkun = 0;
                           <?php endif ?>
 
                         </tr>
-
                       <?php endforeach ?>
 
                     </tbody>
                   </table>
                 </div>
-
               <?php endforeach ?>
 
             </div>

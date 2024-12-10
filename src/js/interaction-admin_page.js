@@ -1,5 +1,4 @@
-// const sidebarCaret = document.querySelector(".sidebar-caret");
-console.log("hello world");
+console.log("\u00A9Indra");
 const sidebarBtn = document.getElementById("sidebarBtn");
 const closeSidebarBtn = document.getElementById("closeSidebarBtn");
 const sidebarParent = document.getElementById("sidebarParent");
@@ -21,10 +20,8 @@ const sideBar = () => {
   // Menampilkan text menu saat sidebar diperbesar
   textSideBar.forEach(function (text) {
     text.classList.toggle("d-none");
-    // text.classList.toggle("d-inline-block");
   });
   // Menghilangkan konten ketika sidebar dibuka dilayar kecil
-  // content.classList.toggle("d-none");
   if (content) {
     content.classList.toggle("col-lg-9");
     content.classList.toggle("col-xl-10");

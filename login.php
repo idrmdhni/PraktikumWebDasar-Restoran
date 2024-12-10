@@ -1,10 +1,13 @@
 <?php
+// Memulai sesi
 session_start();
-
+// Menyertakan script untuk fungsi database
 include "module/Koneksi.php";
+// Koneksi ke database restoran
 $db = new Koneksi("localhost", "root", "", "restoran");
-
+// Menyertakan script untuk mengatur sesi
 include "module/session/session-login_register.php";
+
 // Ketika tombol login ditekan
 if (isset($_POST['login'])) {
   // Koneksi ke database dan mengambil data login
@@ -151,7 +154,7 @@ if (isset($_POST['login'])) {
   <!-- Script untuk tombol sembunyikan & tampilkan password -->
   <script src="src/js/show-hide-pw.js"></script>
   <!-- Script untuk validasi form user -->
-  <script src="src/js/validation-user_form.js"></script>
+  <script src="src/js/validation-kelola_akun.js"></script>
 </body>
 
 </html>

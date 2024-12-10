@@ -22,7 +22,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['akses'])) {
         header('location: index.php');
     }
     // Jika akun yang login tidak termasuk akun pelanggan, arahkan ke halaman admin
-    else {
+    if ($_SESSION['akses'] == "administrator" || $_SESSION['akses'] == "kasir" || $_SESSION['akses'] == "pelayan") {
         header('location: admin.php');
     }
 }

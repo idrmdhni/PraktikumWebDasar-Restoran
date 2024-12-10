@@ -24,14 +24,6 @@
   align-items: center;
 }
 
-.ph-moon {
-  color: #f1c40f;
-}
-
-.ph-sun {
-  color: #f39c12;
-}
-
 .dark-light-checkbox-label .ball {
   width: 20px;
   height: 20px;

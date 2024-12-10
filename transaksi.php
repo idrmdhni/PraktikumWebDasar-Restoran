@@ -1,18 +1,20 @@
 <?php
+// Memulai sesi
 session_start();
-
+// Menyertakan script untuk mengatur segala bentuk navigasi
 include "module/template-halaman_admin/navigasi-admin.php";
-
+// Menyertakan script untuk fungsi database
 include "module/Koneksi.php";
+// Koneksi ke database restoran
 $db = new Koneksi("localhost", "root", "", "restoran");
+// Mengatur zona waktu ke WIB
 date_default_timezone_set('Asia/Makassar');
-
+// Menyertakan script untuk mengatur sesi
 include "module/session/session-admin.php";
-
+// Mengambil data daftar menu dari tabel daftar_menu
 $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
+// Mengambil data daftar transaksi dari tabel transaksi
 $daftarTransaksi = $db->fetchAll("SELECT * FROM transaksi");
-$datailTransaksi = $db->fetchAll("SELECT * FROM detail_transaksi");
-$user = $db->fetchAll("SELECT * FROM users");
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +43,7 @@ $user = $db->fetchAll("SELECT * FROM users");
       <?php include "module/template-halaman_admin/template_navigasi-admin.php" ?>
 
       <!-- Konten Utama -->
-      <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100" id="content">
+      <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">
         <?php include "module/template-halaman_admin/template_header-admin.php" ?>
 
         <main class="d-flex flex-column px-5 py-3 py-md-4 ms-3 ms-md-4 gap-1">
@@ -69,6 +71,7 @@ $user = $db->fetchAll("SELECT * FROM users");
               </button>
             </div>
 
+            <!-- Tabel daftar transaksi yang belum dibayar -->
             <table class="table table-bordered caption-top mt-2">
               <thead>
                 <tr class="border-secondary-subtle text-center">
@@ -81,10 +84,15 @@ $user = $db->fetchAll("SELECT * FROM users");
               </thead>
               <tbody>
                 <?php for ($i = 0; $i < count($daftarTransaksi); $i++): ?>
-                  <?php $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'] ?>
+
+                  <?php
+                  $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'];
+                  $counterBelumBayar = 1;
+                  ?>
+
                   <?php if ($daftarTransaksi[$i]['status_bayar'] == 'belum bayar'): ?>
                     <tr>
-                      <td class="text-center"><?= $i + 1 ?>.</td>
+                      <td class="text-center"><?= $counterBelumBayar++ ?>.</td>
                       <td><?= $daftarTransaksi[$i]['waktu_transaksi'] ?></td>
                       <td><?= $user ?></td>
                       <td>Rp <?= number_format($daftarTransaksi[$i]['total_harga_keseluruhan'], 2, ',', '.') ?></td>
@@ -104,12 +112,14 @@ $user = $db->fetchAll("SELECT * FROM users");
                       </td>
                     </tr>
                   <?php endif ?>
+
                 <?php endfor ?>
               </tbody>
             </table>
           </div>
           <hr>
 
+          <!-- Tabel daftar transaksi yang sudah dibayar -->
           <div class="table-responsive">
             <div class="fw-5 fw-medium mt-1 text-body-secondary">
               <i class="ph-duotone ph-clock-counter-clockwise"></i> Riwayat Transaksi
@@ -128,6 +138,7 @@ $user = $db->fetchAll("SELECT * FROM users");
               <tbody>
                 <?php for ($i = 0; $i < count($daftarTransaksi); $i++): ?>
                   <?php $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'] ?>
+
                   <?php if ($daftarTransaksi[$i]['status_bayar'] == 'lunas'): ?>
                     <tr>
                       <td class="text-center"><?= $i + 1 ?>.</td>
@@ -156,6 +167,7 @@ $user = $db->fetchAll("SELECT * FROM users");
   <script src="src/js/dark_light-mode.js"></script>
   <!-- Script untuk validasi form tambah transaksi -->
   <script src="src/js/form-tambah_transaksi.js"></script>
+  <!-- Script untuk mengatur interaksi saat membayar transaksi -->
   <script src="src/js/bayar-transaksi.js"></script>
 </body>
 
