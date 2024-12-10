@@ -19,19 +19,23 @@ function amount(index) {
   // Regex (Regular Expression) untuk menyaring input selain angka
   const regex = /[^0-9]/g;
   // Jika nilai input kurang dari sama dengan 1
-  if (amountField[index].value <= 1) {
+  if (amountField[index].value <= 0) {
     // Menghilangkan fungsi tombol kurang
     decremenetBtn[index].disabled = true;
+    // Membuat input tetap berada di nol
+    amountField[index].value = 0;
   } else {
     // Jika nilai input lebih dari 1, maka akan mengembalikan fungsi tombol kurang
     decremenetBtn[index].disabled = false;
   }
 
-  if (amountField[index].value < 1) {
-    // Menghilangkan tombol pesan
-    tombolPesan.classList.add("d-none");
+  // Jika nilai input kosong
+  if (amountField[index].value == "") {
+    // Menghilangkan fungsi tombol tambah
+    incrementBtn[index].disabled = true;
   } else {
-    tombolPesan.classList.remove("d-none");
+    // Jika terdapat nilai pada input, maka akan mengembalikan fungsi tombol tambah
+    incrementBtn[index].disabled = false;
   }
 
   // Jika memasukkan selain angka pada input
@@ -50,7 +54,6 @@ for (let i = 0; i < menuCheckbox.length; i++) {
       increDecre[i].style.display = "flex";
       amountField[i].setAttribute("name", "jumlah_pesanan_per_menu[]");
       amountField[i].value = 1;
-      tombolPesan.classList.remove("d-none");
     } else {
       amountField[i].required = false;
       cardMenu[i].classList.toggle("border-warning");
@@ -58,7 +61,6 @@ for (let i = 0; i < menuCheckbox.length; i++) {
       increDecre[i].style.display = "none";
       amountField[i].removeAttribute("name");
       amountField[i].value = null;
-      tombolPesan.classList.add("d-none");
     }
   });
   amountField[i].addEventListener("input", function () {
@@ -75,17 +77,31 @@ for (let i = 0; i < menuCheckbox.length; i++) {
 }
 
 userTransactionValidation.addEventListener("submit", (event) => {
+  // Mengecek apakah terdapat menu yang dipilih
+  let isChecked = false;
+  menuCheckbox.forEach((element) => {
+    if (element.checked) {
+      isChecked = true;
+    }
+  });
+
   for (let i = 0; i < amountField.length; i++) {
-    if (!userTransactionValidation.checkValidity()) {
+    // Periksa apakah ada input yang kosong / ada menu yang dipilih / jumlah menu sama dengan 0
+    if (
+      !userTransactionValidation.checkValidity() ||
+      isChecked == false ||
+      parseInt(amountField[i].value) <= 0
+    ) {
       // Menghentikan aksi mengirim form ketika input kosong
       event.preventDefault();
       event.stopPropagation();
 
       // Memberi peringatan ke input yang kosong
-      if (amountField[i].value == "") {
+      if (amountField[i].value == "" || parseInt(amountField[i].value) <= 0) {
         amountField[i].classList.add("is-invalid");
         alertInput.classList.add("show");
       }
+      break;
     }
   }
 });

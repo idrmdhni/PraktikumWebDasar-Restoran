@@ -106,7 +106,7 @@ $user = $db->fetchRow("SELECT * FROM users WHERE user_id = '{$_SESSION['login']}
         <div class="d-flex flex-column justify-content-center align-items-center mt-4 gap-3">
           <input type="hidden" name="waktu_transaksi" value="<?= date("Y-m-d H:i:s"); ?>">
           <input type="hidden" name="user_id" value="<?= $_SESSION["login"]; ?>">
-          <button type="submit" onclick="return confirm('Apakah kamu yakin')" class="btn btn-primary fs-5 fw-semibold d-none" name="tambah"><i class="ph ph-shopping-cart"></i> Pesan</button>
+          <button type="submit" onclick="return confirm('Apakah kamu yakin')" class="btn btn-primary fs-5 fw-semibold" name="tambah"><i class="ph ph-shopping-cart"></i> Pesan</button>
           <div class="alert alert-danger alert-dismissible fade">
             <span>Terdapat jumlah pesanan yang kosong!</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
