@@ -1,4 +1,4 @@
-<!-- Modal tambah transaksi -->
+<!-- Modal - Tambah Transaksi -->
 <div class="modal fade" id="modalTambahTransaksi" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

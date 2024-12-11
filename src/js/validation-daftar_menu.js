@@ -1,4 +1,5 @@
 // Script untuk validasi saat menambahkan daftar menu
+
 // Mengambil semua element input
 const menuFormValidation = document.getElementById("menuFormValidation");
 const namaMenu = document.getElementById("namaMenu");

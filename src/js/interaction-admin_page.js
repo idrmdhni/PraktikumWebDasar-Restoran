@@ -1,3 +1,5 @@
+// Script untuk mengatur interaksi di halaman admin
+
 console.log("\u00A9Indra");
 const sidebarBtn = document.getElementById("sidebarBtn");
 const closeSidebarBtn = document.getElementById("closeSidebarBtn");

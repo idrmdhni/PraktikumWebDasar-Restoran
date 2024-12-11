@@ -1,3 +1,5 @@
+// Script untuk mengatur light/night mode
+
 // Mendapatkan element toggle mode malam/siang
 const darkLightCheckbox = document.getElementById("darkLightcheckbox");
 // Mengecek mode apakah yang disimpan di dalam cookie

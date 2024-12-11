@@ -14,6 +14,7 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
 ?>
 
 <!DOCTYPE html>
+<!-- Atribut data-bs-theme digunakan untuk mengatur night/light mode -->
 <html lang="en" data-bs-theme="light">
 
 <head>
@@ -57,17 +58,19 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
             <div class="col-12 d-flex justify-content-between">
               <span class="fs-4 fw-semibold">Daftar Menu</span>
 
+              <!-- Modal tambah daftar menu -->
+              <?php include "module/modal_box/modal-tambah_daftar_menu.php" ?>
+
+              <!-- Tombol untuk memunculkan modal dan menambahkan daftar menu -->
               <button class="btn btn-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahDaftarMenu">
                 <i class="ph-bold ph-plus"></i> Tambah Menu
               </button>
-
-              <!-- Modal tambah daftar menu -->
-              <?php include "module/modal_box/modal-tambah_daftar_menu.php" ?>
 
             </div>
 
             <!-- Cards Menu -->
             <?php $counter = 0 ?>
+            <!-- Perulangan untuk mendapatkan daftar menu -->
             <?php foreach ($daftarMenu as $menu): ?>
               <div class="col-auto">
                 <div class="card me-2">
@@ -81,13 +84,13 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
                     <!-- Modal edit daftar menu -->
                     <?php include "module/modal_box/modal-edit_daftar_menu.php" ?>
 
-                    <!-- Edit -->
+                    <!-- Tombol untuk memunculkan modal dan edit daftar menu dan  -->
                     <div class="d-flex gap-2 justify-content-center">
                       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditDaftarMenu<?= $counter++ ?>">
                         <i class="ph-fill ph-pencil-line"></i> Edit
                       </button>
 
-                      <!-- Hapus -->
+                      <!-- Tombol untuk menghapus daftar menu -->
                       <form action="crud/hapus-daftar_menu.php" method="post">
                         <input type="hidden" name="menu_id" value="<?= $menu['menu_id'] ?>">
                         <button type="submit" class="btn btn-danger" name="hapus_menu">

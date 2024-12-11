@@ -1,3 +1,5 @@
+// Script untuk mengatur interaksi di halaman user
+
 const cardMenu = document.querySelectorAll(".card.card-menu");
 const cardFooterMenu = document.querySelectorAll(
   ".card-footer.card-footer-menu"
@@ -15,6 +17,7 @@ const userTransactionValidation = document.getElementById(
 const alertInput = document.querySelector(".alert.alert-danger");
 const tombolPesan = document.querySelector(".btn[name='tambah']");
 
+// Mengatur segala perilaku input untuk menentukan jumlah menu
 function amount(index) {
   // Regex (Regular Expression) untuk menyaring input selain angka
   const regex = /[^0-9]/g;
@@ -45,37 +48,62 @@ function amount(index) {
   }
 }
 
+// Mendapatkan setiap checkbox
 for (let i = 0; i < menuCheckbox.length; i++) {
+  // Event ketika checkbox di ceklis
   menuCheckbox[i].addEventListener("change", function () {
+    // Jika tombol checkbox untuk memilih menu diceklis
     if (this.checked) {
+      // Membuat input wajib memiliki nilai
       amountField[i].required = true;
-      cardMenu[i].classList.toggle("border-warning");
-      cardFooterMenu[i].classList.toggle("border-warning");
-      increDecre[i].style.display = "flex";
-      amountField[i].setAttribute("name", "jumlah_pesanan_per_menu[]");
       amountField[i].value = 1;
-    } else {
-      amountField[i].required = false;
+
+      // Memunculkan input untuk menentukan jumlah menu
+      increDecre[i].style.display = "flex";
+      // Menambahkan atribut name pada input untuk mengisi jumlah menu
+      amountField[i].setAttribute("name", "jumlah_pesanan_per_menu[]");
+
+      // Tambahan styling
       cardMenu[i].classList.toggle("border-warning");
       cardFooterMenu[i].classList.toggle("border-warning");
-      increDecre[i].style.display = "none";
-      amountField[i].removeAttribute("name");
+    } else {
+      // Ketika tombol checkbox untuk memilih menu di unceklis
+      // Membuat input tidak wajib memiliki nilai
+      amountField[i].required = false;
       amountField[i].value = null;
+
+      // Menghilangkan input untuk menentukan jumlah menu
+      increDecre[i].style.display = "none";
+      // Menghapus atribut name pada input untuk mengisi jumlah menu
+      amountField[i].removeAttribute("name");
+
+      // Tambahan styling
+      cardMenu[i].classList.toggle("border-warning");
+      cardFooterMenu[i].classList.toggle("border-warning");
     }
   });
+
+  // Event ketika nilai input untuk menentukan jumlah menu berubah
   amountField[i].addEventListener("input", function () {
+    // Menjalankan fungsi amount
     amount(i);
   });
+  // Event ketika tombol untuk menambahkan jumlah menu berubah
   incrementBtn[i].addEventListener("click", function () {
+    // Menambahkankan 1 nilai input
     amountField[i].value = parseInt(amountField[i].value) + 1;
+    // Menjalankan fungsi amount
     amount(i);
   });
+  // Event ketika tombol untuk mengurangi jumlah menu berubah
   decremenetBtn[i].addEventListener("click", function () {
+    // Mengurangi 1 nilai input
     amountField[i].value = parseInt(amountField[i].value) - 1;
     amount(i);
   });
 }
 
+// Event ketika tombol pesan diklik
 userTransactionValidation.addEventListener("submit", (event) => {
   // Mengecek apakah terdapat menu yang dipilih
   let isChecked = false;

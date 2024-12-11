@@ -1,3 +1,5 @@
+// Script untuk mengatur lihat/sembunyikan password
+
 // Mengambil element icon lihat password
 const showPw = document.querySelectorAll(".show-pw");
 // Mengambil element input password

@@ -36,8 +36,9 @@
           <div class="mb-3">
             <label for="role" class="form-label">Jenis Akun</label>
             <select name="role" id="role" class="form-select">
-              <option value="pelanggan">Pelanggan</option>
+              <option value="administrator">Administrator</option>
               <option value="kasir">Kasir</option>
+              <option value="pelanggan">Pelanggan</option>
               <option value="pelayan">Pelayan</option>
             </select>
           </div>

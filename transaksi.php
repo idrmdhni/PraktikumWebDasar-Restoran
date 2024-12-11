@@ -7,7 +7,7 @@ include "module/template-halaman_admin/navigasi-admin.php";
 include "module/Koneksi.php";
 // Koneksi ke database restoran
 $db = new Koneksi("localhost", "root", "", "restoran");
-// Mengatur zona waktu ke WIB
+// Mengatur zona waktu ke WITA
 date_default_timezone_set('Asia/Makassar');
 // Menyertakan script untuk mengatur sesi
 include "module/session/session-admin.php";
@@ -18,6 +18,7 @@ $daftarTransaksi = $db->fetchAll("SELECT * FROM transaksi");
 ?>
 
 <!DOCTYPE html>
+<!-- Atribut data-bs-theme digunakan untuk mengatur night/light mode -->
 <html lang="en" data-bs-theme="light">
 
 <head>
@@ -83,12 +84,10 @@ $daftarTransaksi = $db->fetchAll("SELECT * FROM transaksi");
                 </tr>
               </thead>
               <tbody>
+                <?php $counterBelumBayar = 1; ?>
+                <!-- Perulangan untuk mendapatkan transaksi yang belum dibayar -->
                 <?php for ($i = 0; $i < count($daftarTransaksi); $i++): ?>
-
-                  <?php
-                  $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'];
-                  $counterBelumBayar = 1;
-                  ?>
+                  <?php $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap']; ?>
 
                   <?php if ($daftarTransaksi[$i]['status_bayar'] == 'belum bayar'): ?>
                     <tr>
@@ -136,6 +135,7 @@ $daftarTransaksi = $db->fetchAll("SELECT * FROM transaksi");
                 </tr>
               </thead>
               <tbody>
+                <!-- Perulangan untuk mendapatkan transaksi yang sudah dibayar -->
                 <?php for ($i = 0; $i < count($daftarTransaksi); $i++): ?>
                   <?php $user = $db->fetchRow("SELECT nama_lengkap FROM users WHERE user_id = {$daftarTransaksi[$i]['user_id']}")['nama_lengkap'] ?>
 

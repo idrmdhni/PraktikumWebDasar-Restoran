@@ -37,6 +37,7 @@ if (isset($_POST['signup'])) {
 ?>
 
 <!DOCTYPE html>
+<!-- Atribut data-bs-theme digunakan untuk mengatur night/light mode -->
 <html lang="en" data-bs-theme="light">
 
 <head>
@@ -76,6 +77,7 @@ if (isset($_POST['signup'])) {
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
         <?php endif ?>
+
         <!-- Pemberitahuan jika akun berhasil dibuat -->
         <?php if (isset($signupSuccess)): ?>
           <div class="alert alert-success alert-dismissible fade show mt-3 text-center">
@@ -86,6 +88,7 @@ if (isset($_POST['signup'])) {
 
         <div class="bg-body-tertiary shadow p-4 rounded-4 text">
           <div class="fs-1 fw-bold text-center mb-4">SIGNUP</div>
+
           <form action="" method="post" id="userFormValidation" novalidate>
             <!-- Username field -->
             <div class="d-flex flex-column gap-3">
@@ -100,6 +103,7 @@ if (isset($_POST['signup'])) {
                   required />
                 <div class="invalid-feedback">Username tidak boleh kosong!</div>
               </div>
+
               <!-- Nama lengkap field -->
               <div>
                 <label for="nama" class="form-label">Nama Lengkap</label>
@@ -112,6 +116,7 @@ if (isset($_POST['signup'])) {
                   required />
                 <div class="invalid-feedback">Nama tidak boleh kosong!</div>
               </div>
+
               <!-- Password field -->
               <div>
                 <label for="password" class="form-label">Password</label>

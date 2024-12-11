@@ -1,4 +1,4 @@
-<!-- Modal edit daftar menu -->
+<!-- Modal - Edit Daftar Menu -->
 <div class="modal fade" id="modalEditDaftarMenu<?= $counter ?>" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

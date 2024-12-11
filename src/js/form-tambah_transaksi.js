@@ -1,4 +1,5 @@
-// Script untuk validasi input saat mendambahkan transaksi
+// Script untuk validasi input saat menambahkan transaksi
+
 // Mendapatkan element form
 const transaksiFormValidation = document.getElementById(
   "transaksiFormValidation"

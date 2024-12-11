@@ -1,4 +1,5 @@
 // Script untuk validasi form input akun
+
 // Mengambil semua element input
 const userFormValidation = document.getElementById("userFormValidation");
 const username = document.getElementById("username");

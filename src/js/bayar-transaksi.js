@@ -1,4 +1,5 @@
 // Script untuk mengatur interaksi saat membayar transaksi
+
 // Mendapatkan input yang berisi total harga keseluruhan
 const totalHargaKeseluruhan = document.querySelectorAll(
   ".total_harga_keseluruhan"

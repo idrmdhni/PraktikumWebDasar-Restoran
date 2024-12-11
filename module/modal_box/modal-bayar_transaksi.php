@@ -1,4 +1,4 @@
-<!-- Modal bayar transkasi -->
+<!-- Modal - Bayar Transkasi -->
 <div class="modal fade" id="bayarTransaksi<?= $i ?>" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

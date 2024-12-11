@@ -50,6 +50,7 @@ if (isset($_POST['login'])) {
 ?>
 
 <!DOCTYPE html>
+<!-- Atribut data-bs-theme digunakan untuk mengatur night/light mode -->
 <html lang="en" data-bs-theme="light">
 
 <head>
@@ -92,6 +93,7 @@ if (isset($_POST['login'])) {
 
         <div class="bg-body-tertiary shadow p-4 rounded-4 text">
           <div class="fs-1 fw-bold text-center mb-4">LOGIN</div>
+
           <form action="" method="post" id="userFormValidation" novalidate>
             <!-- Username field -->
             <div class="d-flex flex-column gap-3">

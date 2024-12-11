@@ -20,6 +20,7 @@ if ($_SESSION['akses'] == "administrator") {
 ?>
 
 <!DOCTYPE html>
+<!-- Atribut data-bs-theme digunakan untuk mengatur night/light mode -->
 <html lang="en" data-bs-theme="light">
 
 <head>
@@ -44,9 +45,10 @@ if ($_SESSION['akses'] == "administrator") {
       <!-- Navigasi -->
       <?php include "module/template-halaman_admin/template_navigasi-admin.php" ?>
 
-      <!-- Konten Utama -->
+      <!-- Isi Konten -->
       <div class="col p-3 bg-tertiary-subtle d-sm-flex flex-column vh-100 overflow-auto" id="content">
 
+        <!-- Header -->
         <?php include "module/template-halaman_admin/template_header-admin.php" ?>
 
         <main class="d-flex flex-column px-5 py-3 py-md-4 ms-3 ms-md-4 gap-1">
@@ -80,7 +82,6 @@ if ($_SESSION['akses'] == "administrator") {
               </div>
             </div>
 
-            <!-- Account Tables -->
             <div class="col-12 col-xl-7 col-xxl-8">
 
               <?php if ($_SESSION['akses'] == "administrator"): ?>
@@ -89,6 +90,7 @@ if ($_SESSION['akses'] == "administrator") {
                 <button type="button" class="btn btn-primary mb-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalTambahAkun"><i class="ph-bold ph-plus"></i> Tambah Akun</button>
               <?php endif ?>
 
+              <!-- Perulangan untuk memecahkan akun berdasarkan jenis / hak akesenya -->
               <?php foreach ($jenisAkun as $status): ?>
                 <?php
                 $daftarAkun = $db->fetchAll("SELECT * FROM akses INNER JOIN users ON akses.user_id = users.user_id  WHERE akses.akses_id = '{$status['akses_id']}'");
@@ -113,6 +115,7 @@ if ($_SESSION['akses'] == "administrator") {
                     </thead>
                     <tbody>
 
+                      <!-- Perulangan untuk mendapatan daftar akun disetiap jenisnya -->
                       <?php foreach ($daftarAkun as $akun): ?>
                         <tr>
                           <td class="text-center"><?= $counterDaftarAkun++ ?>.</td>
@@ -126,9 +129,9 @@ if ($_SESSION['akses'] == "administrator") {
                               <?php include "module/modal_box/modal-edit_akun.php" ?>
 
                               <div class="d-flex justify-content-center gap-1">
-                                <!-- Edit -->
+                                <!-- Tombol untuk memunculkan modal dan edit akun -->
                                 <button type="button" class="btn btn-success ph-fill ph-pencil-line p-1 y-1" data-bs-toggle="modal" data-bs-target="#modalEditAkun<?= $counterModalEditAkun++ ?>"></button>
-                                <!-- Hapus -->
+                                <!-- Tombol untuk menghapus akun -->
                                 <form action="crud/hapus-akun.php" method="post">
                                   <input type="hidden" name="user_id" value="<?= $akun['user_id'] ?>">
                                   <button type="submit" class="btn btn-danger ph-fill ph-eraser p-1 y-1" name="hapus_akun"></button>

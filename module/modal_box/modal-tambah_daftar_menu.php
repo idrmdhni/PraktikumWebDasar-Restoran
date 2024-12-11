@@ -1,4 +1,4 @@
-<!-- Modal tambah daftar menu -->
+<!-- Modal - Tambah Daftar Menu -->
 <div class="modal fade" id="modalTambahDaftarMenu" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
