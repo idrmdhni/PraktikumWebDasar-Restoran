@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 06:35 PM
+-- Generation Time: Dec 12, 2024 at 09:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `restoran`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `akses`
---
-
-CREATE TABLE `akses` (
-  `user_id` int(11) NOT NULL,
-  `akses_id` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `akses`
---
-
-INSERT INTO `akses` (`user_id`, `akses_id`) VALUES
-(21, 'administrator'),
-(63, 'pelanggan'),
-(70, 'pelanggan'),
-(72, 'kasir'),
-(76, 'pelayan');
 
 -- --------------------------------------------------------
 
@@ -68,7 +46,11 @@ INSERT INTO `daftar_menu` (`menu_id`, `nama_menu`, `gambar`, `harga`) VALUES
 (26, 'Chicken Pop Corn Butter Rice', 'chicken_pop_corn_butter_rice.jpg', 53636),
 (27, 'Fettuccine Carbonara', 'fettuccine_carbonara.jpg', 57272),
 (28, 'Lamb Chop NZ', 'lamb_chops_nz.jpg', 108181),
-(29, 'Mix Beef Rice', 'mix_beef_rise.jpg', 45454);
+(29, 'Mix Beef Rice', 'mix_beef_rise.jpg', 45454),
+(33, 'Avocado Juice', 'guava_juice.jpg', 30909),
+(34, 'Chocolate Milkshake', 'chocolate_milkshake.jpg', 33636),
+(35, 'Virgin Mojito', 'virgin_mojito.jpg', 22487),
+(36, 'Mango Lassi', 'mango_lassi.jpg', 52000);
 
 -- --------------------------------------------------------
 
@@ -89,20 +71,14 @@ CREATE TABLE `detail_transaksi` (
 --
 
 INSERT INTO `detail_transaksi` (`detail_transaksi_id`, `menu_id`, `transaksi_id`, `jumlah`, `total_harga`) VALUES
-(21, 22, 17, 2, 95070),
-(22, 23, 17, 1, 115454),
-(27, 22, 20, 1, 47535),
-(28, 29, 20, 2, 90908),
-(29, 25, 21, 2, 114544),
-(30, 26, 22, 3, 160908),
-(31, 27, 23, 2, 114544),
-(45, 23, 35, 2, 230908),
-(46, 26, 35, 3, 160908),
-(52, 22, 40, 1, 47535),
-(57, 23, 45, 1, 115454),
-(85, 28, 70, 1, 108181),
-(86, 29, 70, 2, 90908),
-(93, 29, 75, 2, 90908);
+(105, 28, 82, 1, 108181),
+(106, 25, 82, 2, 114544),
+(107, 26, 82, 4, 214544),
+(108, 24, 83, 2, 147272),
+(109, 27, 83, 1, 57272),
+(110, 24, 84, 3, 220908),
+(111, 22, 84, 3, 142605),
+(112, 27, 85, 2, 114544);
 
 -- --------------------------------------------------------
 
@@ -146,16 +122,10 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`transaksi_id`, `waktu_transaksi`, `total_harga_keseluruhan`, `bayar`, `kembalian`, `status_bayar`, `user_id`) VALUES
-(17, '2024-12-08 16:32:39', 210524, 215000, 4476, 'lunas', 21),
-(20, '2024-12-08 18:19:21', 138443, 150000, 11557, 'lunas', 21),
-(21, '2024-12-08 18:33:27', 114544, 115000, 456, 'lunas', 21),
-(22, '2024-12-08 18:38:26', 160908, 161000, 92, 'lunas', 21),
-(23, '2024-12-09 01:46:16', 114544, 115000, 456, 'lunas', 21),
-(35, '2024-12-10 19:17:15', 391816, 400000, 8184, 'lunas', 63),
-(40, '2024-12-10 22:05:01', 47535, 50000, 2465, 'lunas', 21),
-(45, '2024-12-10 22:51:03', 115454, 120000, 4546, 'lunas', 21),
-(70, '2024-12-11 13:23:43', 199089, 200000, 911, 'lunas', 63),
-(75, '2024-12-12 16:08:17', 90908, 91000, 92, 'lunas', 63);
+(82, '2024-12-13 03:01:01', 437269, 450000, 12731, 'lunas', 82),
+(83, '2024-12-13 03:02:35', 204544, 205000, 456, 'lunas', 91),
+(84, '2024-12-13 03:03:35', 363513, 370000, 6487, 'lunas', 90),
+(85, '2024-12-13 03:04:40', 114544, 115000, 456, 'lunas', 92);
 
 -- --------------------------------------------------------
 
@@ -167,30 +137,23 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `nama_lengkap` varchar(100) NOT NULL
+  `nama_lengkap` varchar(100) NOT NULL,
+  `akses_id` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `nama_lengkap`) VALUES
-(21, 'admin', '$2y$10$RZJpUek9w5dcXU3PoF7fEew10bXCm36BjDxZ1lFcCFwaq3rm7yN6u', 'Kelompok 6'),
-(63, 'user', '$2y$10$u6w3ICucwTKAQKDIhQuQ7eNEwil2z.Z.Q.y54tmsD0mR4Zx24KHEO', 'user'),
-(70, 'Bustamin', '$2y$10$6oCsJLVqjAqnRTj4Csi.3uiZi9Qe6qOxOZPs0quypfXxZO2H9rSw2', 'Bustami makan Ayam'),
-(72, 'kasir', '$2y$10$s6FjyvHILxHaKdH0tgy4ue.BdDJHlJDHXftwT.0PdOAFbUpSoGUz2', 'Kasir'),
-(76, 'pelayan', '$2y$10$fTl38LkNG3VnbdqCg7k4Q.lHAskxCXn.fCLkjBsxFFX/m72oufAau', 'Pelayan');
+INSERT INTO `users` (`user_id`, `username`, `password`, `nama_lengkap`, `akses_id`) VALUES
+(82, 'admin', '$2y$10$iwZWYtp80UqXiSQGAoytTu7CXLiZ4dPSwZxvMVkprk05lKGd5T9GS', 'Kelompok 6', 'administrator'),
+(90, 'kasir', '$2y$10$y/RV.t8aAC1XNop3n2BUe.O2m2zvzTsCrWZJLy2U7O1Ur9Kv4TyoK', 'Kasir', 'kasir'),
+(91, 'pelanggan', '$2y$10$GIyxTlOhf0/dvbeliL2sdel2.5eoOw6lZSmNRMXUP.KqQhyo/5KD.', 'Pelanggan', 'pelanggan'),
+(92, 'pelayan', '$2y$10$4DPrDKnm34t.KyFSBkedsOwCz0Ao24CK1urhPYiH09BQCNZLhtoyW', 'Pelayan', 'pelayan');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `akses`
---
-ALTER TABLE `akses`
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `akses_id` (`akses_id`);
 
 --
 -- Indexes for table `daftar_menu`
@@ -224,7 +187,8 @@ ALTER TABLE `transaksi`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `akses_id` (`akses_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -234,49 +198,48 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `daftar_menu`
 --
 ALTER TABLE `daftar_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `detail_transaksi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `detail_transaksi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `akses`
---
-ALTER TABLE `akses`
-  ADD CONSTRAINT `akses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `akses_ibfk_2` FOREIGN KEY (`akses_id`) REFERENCES `master_akses` (`akses_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  ADD CONSTRAINT `detail_transaksi_ibfk_1` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`transaksi_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detail_transaksi_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `daftar_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detail_transaksi_ibfk_4` FOREIGN KEY (`menu_id`) REFERENCES `daftar_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_transaksi_ibfk_5` FOREIGN KEY (`transaksi_id`) REFERENCES `transaksi` (`transaksi_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`akses_id`) REFERENCES `master_akses` (`akses_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
