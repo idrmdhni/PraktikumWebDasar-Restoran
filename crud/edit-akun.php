@@ -15,6 +15,7 @@ if (isset($_POST['edit'])) {
     } else {
         $password = password_hash($_POST['password_baru'], PASSWORD_DEFAULT);;
     }
+    $jenisAkun = $_POST['role'];
 } else {
     header('location: ../admin.php');
 }
@@ -28,7 +29,7 @@ if ($cekUsername && $cekUsername['user_id'] != $uid) {
             document.location.href = '../admin.php';
         </script>";
 } else {
-    $db->query("UPDATE users SET username = '$username', nama_lengkap = '$namaLengkap', password = '$password' WHERE user_id = '$uid'");
+    $db->query("UPDATE users SET username = '$username', nama_lengkap = '$namaLengkap', password = '$password', akses_id = '$jenisAkun' WHERE user_id = '$uid'");
 
     if ($db->affectedRows() > 0) {
         echo "

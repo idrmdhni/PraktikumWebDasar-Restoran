@@ -103,7 +103,7 @@ $daftarTransaksi = $db->fetchAll("SELECT * FROM transaksi");
                           <!-- Hapus -->
                           <form action="crud/hapus-transaksi.php" method="post">
                             <input type="hidden" name="transaksi_id" value="<?= $daftarTransaksi[$i]['transaksi_id'] ?>">
-                            <button class="btn btn-danger ph-fill ph-eraser p-1 y-1" type="submit" name="hapus_transaksi"></button>
+                            <button class="btn btn-danger ph-fill ph-eraser p-1 y-1" type="submit" name="hapus_transaksi" onclick="return confirm('Apakah anda yakin ingin menghapus transaksi?')"></button>
                           </form>
                           <!-- Bayar -->
                           <button type="button" class="btn btn-primary ph-bold ph-check p-1 y-1" data-bs-toggle="modal" data-bs-target="#bayarTransaksi<?= $i ?>"></button>

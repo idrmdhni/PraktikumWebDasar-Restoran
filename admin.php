@@ -68,7 +68,7 @@ if ($_SESSION['akses'] == "administrator") {
               <div class="row row-cols-2 g-2 justify-content-center mb-4 mb-xl-0">
 
                 <?php for ($i = 0; $i < count($jenisAkun); $i++): ?>
-                  <?php $jumlahAkun = $db->fetchAll("SELECT * FROM akses WHERE akses_id = '{$jenisAkun[$i]['akses_id']}'"); ?>
+                  <?php $jumlahAkun = $db->fetchAll("SELECT * FROM users WHERE akses_id = '{$jenisAkun[$i]['akses_id']}'"); ?>
 
                   <div class="col-5 card <?= $backgroundTotalJenisAkun[$i] ?> me-2">
                     <div class="card-body text-center px-3">
@@ -93,7 +93,7 @@ if ($_SESSION['akses'] == "administrator") {
               <!-- Perulangan untuk memecahkan akun berdasarkan jenis / hak akesenya -->
               <?php foreach ($jenisAkun as $status): ?>
                 <?php
-                $daftarAkun = $db->fetchAll("SELECT * FROM akses INNER JOIN users ON akses.user_id = users.user_id  WHERE akses.akses_id = '{$status['akses_id']}'");
+                $daftarAkun = $db->fetchAll("SELECT * FROM users WHERE akses_id = '{$status['akses_id']}'");
                 $counterDaftarAkun = 1;
                 ?>
 
@@ -134,7 +134,7 @@ if ($_SESSION['akses'] == "administrator") {
                                 <!-- Tombol untuk menghapus akun -->
                                 <form action="crud/hapus-akun.php" method="post">
                                   <input type="hidden" name="user_id" value="<?= $akun['user_id'] ?>">
-                                  <button type="submit" class="btn btn-danger ph-fill ph-eraser p-1 y-1" name="hapus_akun"></button>
+                                  <button type="submit" class="btn btn-danger ph-fill ph-eraser p-1 y-1" name="hapus_akun" onclick="return confirm('Apakah anda yakin ingin menghapus akun?')"></button>
                                 </form>
                               </div>
                             </td>

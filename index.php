@@ -133,7 +133,7 @@ $user = $db->fetchRow("SELECT * FROM users WHERE user_id = '{$_SESSION['login']}
           <input type="hidden" name="user_id" value="<?= $_SESSION["login"]; ?>">
 
           <!-- Tombol submit untuk memesan menu -->
-          <button type="submit" onclick="return confirm('Apakah kamu yakin')" class="btn btn-primary fs-5 fw-semibold" name="tambah"><i class="ph ph-shopping-cart"></i> Pesan</button>
+          <button type="submit" onclick="return confirm('Apakah anda yakin ingin memesan?')" class="btn btn-primary fs-5 fw-semibold" name="tambah"><i class="ph ph-shopping-cart"></i> Pesan</button>
 
           <!-- Peringatan ketika jumlah menu kosong -->
           <div class="alert alert-danger alert-dismissible fade">

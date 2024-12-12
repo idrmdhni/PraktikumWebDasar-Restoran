@@ -15,11 +15,15 @@ if (isset($_POST['hapus_akun'])) {
 $db->query("DELETE FROM users WHERE user_id = '$uid'");
 
 if ($db->affectedRows() > 0) {
-    echo "
+    if ($_SESSION['login'] == $uid) {
+        header('location: ../logout.php');
+    } else {
+        echo "
         <script>
             alert('Akun berhasil dihapus!');
             document.location.href = '../admin.php';
         </script>";
+    }
 } else {
     echo "
         <script>

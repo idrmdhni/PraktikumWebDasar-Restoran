@@ -1,17 +1,16 @@
 <?php
-// Cek apakah sudah login:
+// Cek apakah akun tersimpan di cookie
 // Jika pada cookie terdapat id dan key
 if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     $id = $_COOKIE['id'];
     $key = $_COOKIE['key'];
     $result = $db->fetchRow("SELECT * FROM users WHERE user_id = '$id'");
-    $akses = $db->fetchRow("SELECT * FROM akses WHERE user_id = '{$result["user_id"]}'");
 
     // Cek apakah key tersebut sesuai dengan username
     if ($key === hash('sha256', $result['username'])) {
         // Jika iya, set sesi login
         $_SESSION['login'] = $id;
-        $_SESSION['akses'] = $akses['akses_id'];
+        $_SESSION['akses'] = $result['akses_id'];
     }
 }
 

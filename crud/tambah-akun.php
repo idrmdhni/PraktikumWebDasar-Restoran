@@ -24,9 +24,7 @@ if ($result) {
         document.location.href = '../admin.php';
     </script>";
 } else {
-    $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap')");
-    $result = $db->fetchRow("SELECT * FROM users WHERE username = '$username'")['user_id'];
-    $db->query("INSERT INTO akses VALUES ('$result', '$jenisAkun')");
+    $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap', '$jenisAkun')");
 
     if ($db->affectedRows() > 0) {
         echo "

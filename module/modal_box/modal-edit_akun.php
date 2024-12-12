@@ -31,6 +31,15 @@
               <i class="ph ph-eye-slash input-group-text rounded-end-3 show-pw"></i>
             </div>
           </div>
+          <div class="mb-3">
+            <label for="role" class="form-label">Jenis Akun</label>
+            <select name="role" id="role" class="form-select">
+              <option value="administrator">Administrator</option>
+              <option value="kasir">Kasir</option>
+              <option value="pelanggan">Pelanggan</option>
+              <option value="pelayan">Pelayan</option>
+            </select>
+          </div>
         </div>
         <div class="modal-footer text-end">
           <button type="submit" class="btn btn-success" name="edit">Edit</button>

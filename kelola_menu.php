@@ -93,7 +93,7 @@ $daftarMenu = $db->fetchAll("SELECT * FROM daftar_menu");
                       <!-- Tombol untuk menghapus daftar menu -->
                       <form action="crud/hapus-daftar_menu.php" method="post">
                         <input type="hidden" name="menu_id" value="<?= $menu['menu_id'] ?>">
-                        <button type="submit" class="btn btn-danger" name="hapus_menu">
+                        <button type="submit" class="btn btn-danger" name="hapus_menu" onclick="return confirm('Apakah anda yakin ingin menghapus menu?')">
                           <i class="ph-fill ph-eraser"></i> Hapus
                         </button>
                       </form>

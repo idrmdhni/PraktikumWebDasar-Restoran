@@ -22,11 +22,8 @@ if (isset($_POST['signup'])) {
     // Jika tidak tersedia, set variabel untuk memunculkan peringatan
     $signupError = true;
   } else {
-    // Jika username tersedia, buat akun sesuai dengan yang telah diinputkan
-    $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap')");
-    // Menambahkan akses akun sebagai pelanggan
-    $result = $db->fetchRow("SELECT * FROM users WHERE username = '$username'")['user_id'];
-    $db->query("INSERT INTO akses VALUES ('$result', 'pelanggan')");
+    // Jika username tersedia, buat akun sesuai dengan yang telah diinputkan dan atur jenis akun menjadi pelanggan
+    $db->query("INSERT INTO users VALUES ('', '$username', '$password', '$namaLengkap', 'pelanggan')");
     // Jika akun berhasil dibuat
     if ($db->affectedRows() > 0) {
       // Set variabel untuk memunculkan permberitahuan bahwa akun berhasil dibuat

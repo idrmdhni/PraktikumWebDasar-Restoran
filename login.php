@@ -18,19 +18,16 @@ if (isset($_POST['login'])) {
   // Validasi
   // Cek apakah username dan password sesuai
   if ($result && password_verify($password, $result['password'])) {
-
-    // Mendapatkan akses berdasarkan jenis akun
-    $akses = $db->fetchRow("SELECT * FROM akses WHERE user_id = '{$result["user_id"]}'");
-
+   
     // Set sesi untuk mengatur akses ke halaman 
     $_SESSION['login'] = $result['user_id'];
-    $_SESSION['akses'] = $akses['akses_id'];
+    $_SESSION['akses'] = $result['akses_id'];
 
     // Jika tombol remember me dicentang
     if (isset($_POST['rememberme'])) {
       // Atur agar ketika membuka halaman tidak perlu login kembali
-      setcookie('id', $result['user_id'], time() + 60);
-      setcookie('key', hash('sha256', $result['username']), time() + 60);
+      setcookie('id', $result['user_id'], time() + 3600);
+      setcookie('key', hash('sha256', $result['username']), time() + 3600);
     }
 
     // Jika akun yang login termasuk akun pelanggan, arahkan ke halaman user
