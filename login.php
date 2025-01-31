@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
   // Validasi
   // Cek apakah username dan password sesuai
   if ($result && password_verify($password, $result['password'])) {
-   
+
     // Set sesi untuk mengatur akses ke halaman 
     $_SESSION['login'] = $result['user_id'];
     $_SESSION['akses'] = $result['akses_id'];
@@ -31,7 +31,7 @@ if (isset($_POST['login'])) {
     }
 
     // Jika akun yang login termasuk akun pelanggan, arahkan ke halaman user
-    if ($akses['akses_id'] == "pelanggan") {
+    if ($result['akses_id'] == "pelanggan") {
       header('location: index.php');
     }
     // Jika akun yang login tidak termasuk akun pelanggan, arahkan ke halaman admin
