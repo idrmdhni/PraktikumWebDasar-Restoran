@@ -23,7 +23,7 @@ Berikut adalah rincian fitur untuk setiap peran:
 * **Pemesanan / Membuat Transaksi**
 
 ## Teknologi yang Digunakan
-* **Frontend**: HTML, CSS (Bootstrap 5)
+* **Frontend**: HTML, CSS (Bootstrap 5), dan Javascript
 * **Backend**: PHP
 * **Database**: MySQL
 
